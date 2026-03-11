@@ -24,24 +24,23 @@ const LATA_LIFE = [
     years: "1929 – 1948",
     img: LATA_YOUNG,
     summary:
-      "Born on 28 September 1929 in Indore, Lata Deenanath Mangeshkar showed musical genius from childhood. Trained by her father — the celebrated classical singer Deenanath Mangeshkar — she performed on stage before the age of five. After his untimely death in 1942, thirteen-year-old Lata shouldered the family's survival by singing in Marathi and Hindi films. Her haunting, crystalline voice caught immediate attention in Bombay's film industry, and she began what would become the longest and most celebrated career in Indian music history.",
+      "Born Hema Mangeshkar on 28 September 1929 in Indore, she showed musical genius from childhood. Her father, Deenanath Mangeshkar — a celebrated Marathi classical singer and theatre actor — began training her before she could read. She performed on stage before the age of five. After his untimely death in 1942, a thirteen-year-old Lata shouldered the family's survival, singing in Marathi and Hindi films to support her mother and four younger siblings. Her pure, crystalline voice caught immediate attention in Bombay's film industry, and she began recording professionally by 1945 — launching what would become the longest and most celebrated career in Indian music history.",
   },
   {
     era: "The Golden Voice",
     years: "1949 – 1972",
     img: LATA_MIDDLE,
     summary:
-      "With Mahal (1949) and the iconic 'Ayega Aanewala', Lata became a household name overnight. Through the 1950s and 60s she sang for virtually every leading actress — Nargis, Meena Kumari, Waheeda Rehman, Hema Malini — and collaborated with the greatest composers: Naushad, S.D. Burman, Shankar-Jaikishan, Madan Mohan and Laxmikant-Pyarelal. Her 1963 rendition of 'Ae Mere Watan Ke Logo' moved Prime Minister Nehru to tears in a live concert. By this era she was beyond comparison — the undisputed Nightingale of India.",
+      "With Mahal (1949) and the unforgettable 'Ayega Aanewala', Lata became a household name overnight. Through the 1950s and 60s she lent her voice to virtually every leading actress — Nargis, Meena Kumari, Waheeda Rehman, Sadhana — and collaborated with the greatest composers of the golden era: Naushad, S.D. Burman, Shankar-Jaikishan, Madan Mohan and Laxmikant-Pyarelal. In 1963, her live rendition of 'Ae Mere Watan Ke Logo' moved Prime Minister Nehru to tears. In 1969, she made the extraordinary gesture of giving up the Filmfare Award permanently — to give space to newer voices. By this era she was beyond comparison — the undisputed Nightingale of India.",
   },
   {
     era: "Legacy & Legend",
     years: "1973 – 2022",
     img: LATA_OLD,
     summary:
-      "Lata's voice evolved with time yet never lost its purity — from the devotional depth of 'Dil Dhoondta Hai' to the playful delight of 'Hawa Hawai'. She received the Bharat Ratna in 2001, India's highest civilian honour. She sang in over 36 languages, recorded more than 30,000 songs across seven decades, and was once certified by Guinness World Records as the most recorded artist in history. On 6 February 2022, the voice that had defined an era fell silent at 92 — but no silence can ever contain it.",
+      "In 1974, Lata became the first Indian playback singer to perform at the Royal Albert Hall, London. That same year, the Guinness Book of Records named her the most recorded artist in history. She received the Dadasaheb Phalke Award in 1989, the Padma Vibhushan in 1999, and the Bharat Ratna in 2001 — becoming only the second vocalist in India ever to receive the nation's highest civilian honour. France honoured her with the Legion of Honour in 2007. She sang in over 36 languages across eight decades — and on 6 February 2022, the voice that had defined an era fell silent at 92. But no silence can ever contain it.",
   },
 ];
-
 const FONT_LINK =
   "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Cinzel:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@300;400;500&display=swap";
 
@@ -173,10 +172,13 @@ function OrganizersBar({ organizers }) {
   if (!organizers?.length) return null;
   return (
     <Reveal>
-      <div style={{ display:"flex", alignItems:"center", justifyContent:"center", flexWrap:"wrap", gap:"1.5rem", padding:"2.5rem clamp(1rem,5vw,5rem)", borderBottom:"1px solid rgba(201,168,76,.1)" }}>
+      <div style={{ display:"flex", alignItems:"center", justifyContent:"center", flexWrap:"wrap", gap:"2rem", padding:"2.5rem clamp(1rem,5vw,5rem)", borderBottom:"1px solid rgba(201,168,76,.1)" }}>
         {organizers.map((org, i) => (
           <div key={i} style={{ display:"flex", alignItems:"center" }}>
-            {i > 0 && <div style={{ width:1, height:52, background:"linear-gradient(180deg,transparent,rgba(201,168,76,.28),transparent)", margin:"0 1.5rem" }}/>}
+            {/* Divider — hidden on mobile via class */}
+            {i > 0 && (
+              <div className="org-divider" style={{ width:1, height:52, background:"linear-gradient(180deg,transparent,rgba(201,168,76,.28),transparent)", margin:"0 1.5rem" }}/>
+            )}
             <div style={{ display:"flex", flexDirection:"column", alignItems:"center", gap:8 }}>
               <div style={{ width:58, height:58, borderRadius:"50%", border:"1px solid rgba(201,168,76,.45)", background:"radial-gradient(circle at 38% 35%,rgba(201,168,76,.12),rgba(201,168,76,.02))", display:"flex", alignItems:"center", justifyContent:"center", overflow:"hidden", boxShadow:"0 0 18px rgba(201,168,76,.08)" }}>
                 {org.logoUrl
@@ -205,7 +207,7 @@ function LataLifeSection() {
       <SectionLabel>Her Journey</SectionLabel>
       <SectionTitle>The Voice That <GoldEm>Defined a Nation</GoldEm></SectionTitle>
       <p style={{ color:"var(--text-dim)", maxWidth:620, marginBottom:"4rem", fontSize:"clamp(0.95rem,2vw,1.05rem)", lineHeight:1.9 }}>
-        Seven decades. Thirty-six languages. Thirty thousand songs. One voice that became the soundtrack of India's joys, sorrows, and everything in between.
+        Eight decades. Thirty-six languages. Thirty thousand songs. One voice that became the soundtrack of India's joys, sorrows, and everything in between.
       </p>
       <div style={{ display:"flex", flexDirection:"column", gap:"5rem" }}>
         {LATA_LIFE.map((phase, i) => (
@@ -228,10 +230,12 @@ function LifePhaseRow({ phase, flip, index }) {
       transform:vis?"translateY(0)":"translateY(40px)",
       transition:`opacity .9s ${index*.18}s ease,transform .9s ${index*.18}s ease`,
     }}>
-      <div style={{ order: flip ? 2 : 1, display:"flex", justifyContent:"center" }}>
+      {/* Image — always order:1 on mobile via className, flip only on desktop */}
+      <div className="life-img" style={{ order: flip ? 2 : 1, display:"flex", justifyContent:"center" }}>
         <PortraitCircle src={phase.img} alt={phase.era} size="min(200px,50vw)"/>
       </div>
-      <div style={{ order: flip ? 1 : 2 }}>
+      {/* Text — always order:2 on mobile */}
+      <div className="life-text" style={{ order: flip ? 1 : 2 }}>
         <div style={{ fontFamily:"'Cinzel',serif", fontSize:"0.58rem", letterSpacing:"0.5em", color:"var(--gold)", opacity:.65, textTransform:"uppercase", marginBottom:"0.5rem" }}>{phase.years}</div>
         <h3 style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"clamp(1.4rem,3vw,2.4rem)", fontWeight:300, lineHeight:1.15, marginBottom:"1.25rem" }}>
           <GoldEm>{phase.era}</GoldEm>
@@ -288,20 +292,26 @@ function PerformersSection({ performers }) {
   return (
     <section ref={ref} id="performers" style={{ padding:"5rem clamp(1rem,5vw,5rem)", maxWidth:1200, margin:"0 auto", opacity:vis?1:0, transform:vis?"none":"translateY(48px)", transition:"opacity .9s ease,transform .9s ease" }}>
       <SectionLabel>The Artists</SectionLabel>
-      <SectionTitle>Voices Worthy of <GoldEm>the Legend</GoldEm></SectionTitle>
-      <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill,minmax(min(220px,100%),1fr))", gap:"1.5rem" }}>
+     <SectionTitle>Honouring <GoldEm>the Legend</GoldEm></SectionTitle>
+      <div style={{
+        display:"flex",
+        flexWrap:"wrap",
+        justifyContent:"center",
+        gap:"1.5rem",
+      }}>
         {performers.map((p,i)=><PerformerCard key={i} p={p}/>)}
       </div>
     </section>
   );
 }
-
 function PerformerCard({ p }) {
   const [hov, setHov] = useState(false);
   return (
     <div
       onMouseEnter={()=>setHov(true)} onMouseLeave={()=>setHov(false)}
-      style={{ background:hov?"rgba(201,168,76,.06)":"rgba(201,168,76,.025)", border:`1px solid ${hov?"rgba(201,168,76,.35)":"rgba(201,168,76,.12)"}`, padding:"2rem 1.5rem", textAlign:"center", transform:hov?"translateY(-4px)":"none", boxShadow:hov?"0 20px 60px rgba(201,168,76,.1)":"none", transition:"all .35s ease" }}>
+      style={{ background:hov?"rgba(201,168,76,.06)":"rgba(201,168,76,.025)", border:`1px solid ${hov?"rgba(201,168,76,.35)":"rgba(201,168,76,.12)"}`, padding:"2rem 1.5rem", textAlign:"center", transform:hov?"translateY(-4px)":"none", boxShadow:hov?"0 20px 60px rgba(201,168,76,.1)":"none", transition:"all .35s ease",
+        width:"min(280px,92vw)", flexShrink:0
+      }}>
       {p.imgUrl
         ? <img src={p.imgUrl} alt={p.name} style={{ width:72, height:72, borderRadius:"50%", objectFit:"cover", border:"1px solid rgba(201,168,76,.3)", margin:"0 auto 1.25rem", display:"block" }}/>
         : <div style={{ width:72, height:72, background:"linear-gradient(135deg,rgba(201,168,76,.12),rgba(122,28,46,.12))", border:"1px solid rgba(201,168,76,.18)", borderRadius:"50%", margin:"0 auto 1.25rem", display:"flex", alignItems:"center", justifyContent:"center", fontSize:"1.7rem" }}>{p.emoji||"🎵"}</div>
@@ -376,7 +386,7 @@ function TicketsSection({ tickets }) {
     <section ref={ref} id="tickets" style={{ padding:"5rem clamp(1rem,5vw,5rem)", textAlign:"center", background:"linear-gradient(180deg,transparent,rgba(201,168,76,.02),transparent)", opacity:vis?1:0, transform:vis?"none":"translateY(48px)", transition:"opacity .9s ease,transform .9s ease" }}>
       <SectionLabel>Reserve Your Place</SectionLabel>
       <SectionTitle>Be Part of <GoldEm>History</GoldEm></SectionTitle>
-      <div style={{ display:"flex", justifyContent:"center", gap:"1.5rem", flexWrap:"wrap", marginTop:"2.5rem" }}>
+      <div className="tickets-grid" style={{ display:"flex", justifyContent:"center", gap:"1.5rem", flexWrap:"wrap", marginTop:"2.5rem" }}>
         {tickets.map((t,i)=><TicketCard key={i} t={t}/>)}
       </div>
     </section>
@@ -387,6 +397,7 @@ function TicketCard({ t }) {
   const [hov, setHov] = useState(false);
   return (
     <div
+      className="ticket-card"
       onMouseEnter={()=>setHov(true)} onMouseLeave={()=>setHov(false)}
       style={{ background:t.featured?"linear-gradient(135deg,rgba(201,168,76,.1),rgba(122,28,46,.07))":"rgba(201,168,76,.03)", border:`1px solid ${t.featured?"var(--gold)":"rgba(201,168,76,.18)"}`, padding:"2.5rem 2rem", width:"min(280px,90vw)", boxShadow:hov?"0 28px 70px rgba(201,168,76,.15)":t.featured?"0 0 40px rgba(201,168,76,.12)":"none", transform:hov?"translateY(-6px)":"none", transition:"all .35s ease", textAlign:"left" }}>
       <div style={{ fontFamily:"'Cinzel',serif", fontSize:"0.58rem", letterSpacing:"0.4em", color:"var(--gold)", textTransform:"uppercase", marginBottom:"1.25rem" }}>{t.tier}</div>
@@ -402,7 +413,6 @@ function TicketCard({ t }) {
     </div>
   );
 }
-
 // ── COMING SOON ───────────────────────────────────────────────────────────────
 function ComingSoonSection({ cfg }) {
   return (
@@ -412,20 +422,19 @@ function ComingSoonSection({ cfg }) {
         <h2 style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"clamp(1.7rem,4vw,3.2rem)", fontWeight:300, lineHeight:1.15, marginBottom:"2.5rem" }}>
           Something <GoldEm>extraordinary</GoldEm><br/>is being prepared
         </h2>
-        <div style={{ display:"inline-flex", alignItems:"center", gap:"1rem", background:"rgba(201,168,76,.05)", border:"1px solid rgba(201,168,76,.2)", padding:"1.5rem clamp(1.5rem,5vw,3.5rem)", marginBottom:"2rem" }}>
-          <span style={{ fontSize:"1.8rem", animation:"float 3s ease-in-out infinite" }}>🪔</span>
-          <span style={{ fontFamily:"'Cinzel',serif", fontSize:"0.65rem", letterSpacing:"0.35em", color:"var(--gold)", textTransform:"uppercase" }}>
+        <div style={{ display:"flex", alignItems:"center", justifyContent:"center", gap:"1rem", background:"rgba(201,168,76,.05)", border:"1px solid rgba(201,168,76,.2)", padding:"1.5rem clamp(1rem,5vw,3.5rem)", marginBottom:"2rem", maxWidth:"min(560px,92vw)", margin:"0 auto 2rem", flexWrap:"wrap" }}>
+          <span style={{ fontSize:"1.8rem", animation:"float 3s ease-in-out infinite", flexShrink:0 }}>🪔</span>
+          <span style={{ fontFamily:"'Cinzel',serif", fontSize:"clamp(0.52rem,1.5vw,0.65rem)", letterSpacing:"0.28em", color:"var(--gold)", textTransform:"uppercase", lineHeight:1.8 }}>
             {cfg?.comingSoonLabel || "Full reveal coming soon"}
           </span>
         </div>
         {cfg?.comingSoonDesc && (
-          <p style={{ color:"var(--text-dim)", maxWidth:480, margin:"0 auto", fontSize:"clamp(0.9rem,2vw,1rem)", lineHeight:1.8 }}>{cfg.comingSoonDesc}</p>
+          <p style={{ color:"var(--text-dim)", maxWidth:"min(480px,92vw)", margin:"0 auto", fontSize:"clamp(0.9rem,2vw,1rem)", lineHeight:1.8 }}>{cfg.comingSoonDesc}</p>
         )}
       </section>
     </Reveal>
   );
 }
-
 // ── NAV ───────────────────────────────────────────────────────────────────────
 function Nav({ title, cfg }) {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -541,10 +550,12 @@ export default function App() {
     load();
   }, []);
 
-  const hasSections = cfg && (
-    cfg.songs?.length || cfg.performers?.length ||
-    cfg.venue || cfg.schedule?.length || cfg.tickets?.length
-  );
+  const phase = cfg?.phase ?? 1; // default to 1 if not set
+
+const hasSections = phase >= 2 && cfg && (
+  cfg.songs?.length || cfg.performers?.length ||
+  cfg.venue || cfg.schedule?.length || cfg.tickets?.length
+);
 
   const title         = cfg?.title         || "Saptasur";
   const subtitle      = cfg?.subtitle      || "";
@@ -566,7 +577,10 @@ export default function App() {
     *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
     html { scroll-behavior:smooth; -webkit-text-size-adjust:100%; }
     body { color:var(--text-main); font-family:'Cormorant Garamond',serif; font-size:18px; line-height:1.7; }
-
+    @media (max-width: 600px) {
+      .tickets-grid { flex-direction: column; align-items: center; }
+      .ticket-card  { width: min(400px, 92vw) !important; }
+    }
     @keyframes shimmer    { 0%{background-position:-200% center} 100%{background-position:200% center} }
     @keyframes float      { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
     @keyframes fadeInUp   { from{opacity:0;transform:translateY(32px)} to{opacity:1;transform:translateY(0)} }
@@ -586,14 +600,19 @@ export default function App() {
     @media (min-width: 641px) {
       .nav-mobile-menu { display: none !important; }
     }
-
+    @media (max-width: 600px) {
+    .life-img  { order: 1 !important; }
+    .life-text { order: 2 !important; }
+    }
     /* ── MOBILE COUNTDOWN ── */
     @media (max-width: 480px) {
       .countdown-grid { gap: 0.75rem !important; }
       .countdown-box  { padding: 1.25rem 1rem !important; min-width: 72px !important; }
       .countdown-num  { font-size: 2.5rem !important; }
     }
-
+    @media (max-width: 600px) {
+      .org-divider { display: none !important; }
+    }
     /* ── MOBILE HERO ── */
     @media (max-width: 480px) {
       .hero-tagline   { font-size: 0.44rem !important; letter-spacing: 0.35em !important; }
@@ -787,36 +806,27 @@ export default function App() {
         <Divider/>
 
         {/* ── CONDITIONAL SECTIONS ── */}
-        {!hasSections && <ComingSoonSection cfg={cfg}/>}
-        <SongsSection songs={cfg?.songs}/>
-        {cfg?.songs?.length > 0 && cfg?.performers?.length > 0 && <Divider/>}
-        <PerformersSection performers={cfg?.performers}/>
-        {cfg?.venue?.name && <Divider/>}
-        <VenueSection venue={cfg?.venue}/>
-        {cfg?.schedule?.length > 0 && <Divider/>}
-        <ScheduleSection schedule={cfg?.schedule}/>
-        {cfg?.tickets?.length > 0 && <Divider/>}
-        <TicketsSection tickets={cfg?.tickets}/>
+        {/* Coming Soon — only when phase 1 */}
+        {phase === 1 && <ComingSoonSection cfg={cfg}/>}
+
+        {/* Phase 2+ sections */}
+        {phase >= 2 && <SongsSection songs={cfg?.songs}/>}
+        {phase >= 2 && cfg?.songs?.length > 0 && cfg?.performers?.length > 0 && <Divider/>}
+        {phase >= 2 && <PerformersSection performers={cfg?.performers}/>}
+        {phase >= 2 && cfg?.venue?.name && <Divider/>}
+        {phase >= 2 && <VenueSection venue={cfg?.venue}/>}
+        {phase >= 2 && cfg?.schedule?.length > 0 && <Divider/>}
+        {phase >= 2 && <ScheduleSection schedule={cfg?.schedule}/>}
+        {phase >= 2 && cfg?.tickets?.length > 0 && <Divider/>}
+        {phase >= 2 && <TicketsSection tickets={cfg?.tickets}/>}
 
         {/* ── FOOTER ── */}
-        <footer style={{ padding:"3.5rem clamp(1rem,5vw,4rem) 2rem", borderTop:"1px solid rgba(201,168,76,.1)", textAlign:"center", display:"flex", flexDirection:"column", alignItems:"center", gap:"1rem" }}>
-          <img src={SAPTSUR_IMG} alt={title}
-            style={{ height:32, width:"auto",margin: "-18% -5% -60%", mixBlendMode:"screen", filter:"brightness(1.05) drop-shadow(0 0 8px rgba(201,168,76,.3))" }}
-            onError={e=>e.target.style.display="none"}
-          />
-          <div style={{ fontFamily:"'Cormorant Garamond',serif", fontStyle:"italic", color:"var(--text-dim)", fontSize:"clamp(0.9rem,2vw,1rem)" }}>{footerTagline}</div>
-          {cfg?.organizers?.length > 0 && (
-            <div style={{ display:"flex", alignItems:"center", gap:"0.75rem", flexWrap:"wrap", justifyContent:"center" }}>
-              {cfg.organizers.map((o,i,arr)=>(
-                <span key={i} style={{ display:"flex", alignItems:"center", gap:"0.75rem" }}>
-                  <span style={{ fontFamily:"'Cinzel',serif", fontSize:"0.48rem", letterSpacing:"0.15em", color:"rgba(160,152,136,.4)", textTransform:"uppercase" }}>{o.name}</span>
-                  {i < arr.length-1 && <span style={{ color:"rgba(201,168,76,.2)", fontSize:"0.5rem" }}>✦</span>}
-                </span>
-              ))}
-            </div>
-          )}
-          <div style={{ fontFamily:"'Cinzel',serif", fontSize:"0.46rem", letterSpacing:"0.2em", color:"rgba(160,152,136,.25)", textTransform:"uppercase" }}>{copyright}</div>
-        </footer>
+      <div style={{ overflow:"hidden", height:36, display:"flex", alignItems:"center", justifyContent:"center" }}>
+  <img src={SAPTSUR_IMG} alt={title}
+    style={{ height:80, width:"auto", mixBlendMode:"screen", filter:"brightness(1.05) drop-shadow(0 0 8px rgba(201,168,76,.3))", marginTop:8 }}
+    onError={e=>e.target.style.display="none"}
+  />
+</div>
 
       </div>
     </>
