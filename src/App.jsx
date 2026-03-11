@@ -568,69 +568,61 @@ const hasSections = phase >= 2 && cfg && (
   const footerTagline = cfg?.footerTagline || "Tere Sur Aur Mere Geet — In Memory of Bharat Ratna Lata Mangeshkar";
   const copyright     = cfg?.copyright     || `© ${new Date().getFullYear()} Saptasur. All rights reserved.`;
 
-  const css = `
-    :root {
-      --gold:#c9a84c; --gold-light:#e8c97a; --gold-pale:#f5e6c0;
-      --midnight:#0a0a14; --ivory:#fdf7e8; --ivory-dim:#d4cfc4;
-      --text-main:#e8e0d0; --text-dim:#a09888;
-    }
-    *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
-    html { scroll-behavior:smooth; -webkit-text-size-adjust:100%; }
-    body { color:var(--text-main); font-family:'Cormorant Garamond',serif; font-size:18px; line-height:1.7; }
-    @media (max-width: 600px) {
-      .tickets-grid { flex-direction: column; align-items: center; }
-      .ticket-card  { width: min(400px, 92vw) !important; }
-    }
-    @keyframes shimmer    { 0%{background-position:-200% center} 100%{background-position:200% center} }
-    @keyframes float      { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
-    @keyframes fadeInUp   { from{opacity:0;transform:translateY(32px)} to{opacity:1;transform:translateY(0)} }
-    @keyframes pulseGlow  { 0%,100%{opacity:.5} 50%{opacity:1} }
-    @keyframes rotateOrb  { from{transform:rotate(0deg) translateX(155px) rotate(0deg)} to{transform:rotate(360deg) translateX(155px) rotate(-360deg)} }
-    @keyframes borderGlow { 0%,100%{border-color:rgba(201,168,76,.15)} 50%{border-color:rgba(201,168,76,.45)} }
-    @keyframes starTwinkle{ 0%,100%{opacity:.12;transform:scale(1)} 50%{opacity:.85;transform:scale(1.5)} }
-    @keyframes loaderBar  { 0%{background-position:-200% center} 100%{background-position:200% center} }
-    @keyframes breathe    { 0%,100%{opacity:.6;transform:scale(1)} 50%{opacity:1;transform:scale(1.07)} }
-    @keyframes spin       { to{transform:rotate(360deg)} }
+const css = `
+  :root {
+    --gold:#c9a84c; --gold-light:#e8c97a; --gold-pale:#f5e6c0;
+    --midnight:#0a0a14; --ivory:#fdf7e8; --ivory-dim:#d4cfc4;
+    --text-main:#e8e0d0; --text-dim:#a09888;
+  }
+  *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+  html { scroll-behavior:smooth; -webkit-text-size-adjust:100%; }
+  body { color:var(--text-main); font-family:'Cormorant Garamond',serif; font-size:18px; line-height:1.7; }
+  @keyframes shimmer    { 0%{background-position:-200% center} 100%{background-position:200% center} }
+  @keyframes float      { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+  @keyframes fadeInUp   { from{opacity:0;transform:translateY(32px)} to{opacity:1;transform:translateY(0)} }
+  @keyframes pulseGlow  { 0%,100%{opacity:.5} 50%{opacity:1} }
+  @keyframes rotateOrb  { from{transform:rotate(0deg) translateX(155px) rotate(0deg)} to{transform:rotate(360deg) translateX(155px) rotate(-360deg)} }
+  @keyframes borderGlow { 0%,100%{border-color:rgba(201,168,76,.15)} 50%{border-color:rgba(201,168,76,.45)} }
+  @keyframes starTwinkle{ 0%,100%{opacity:.12;transform:scale(1)} 50%{opacity:.85;transform:scale(1.5)} }
+  @keyframes loaderBar  { 0%{background-position:-200% center} 100%{background-position:200% center} }
+  @keyframes breathe    { 0%,100%{opacity:.6;transform:scale(1)} 50%{opacity:1;transform:scale(1.07)} }
+  @keyframes spin       { to{transform:rotate(360deg)} }
 
-    /* ── MOBILE NAV ── */
-    @media (max-width: 640px) {
-      .nav-links  { display: none !important; }
-      .nav-burger { display: flex !important; }
-    }
-    @media (min-width: 641px) {
-      .nav-mobile-menu { display: none !important; }
-    }
-    @media (max-width: 600px) {
-    .life-img  { order: 1 !important; }
-    .life-text { order: 2 !important; }
-    }
-    /* ── MOBILE COUNTDOWN ── */
-    @media (max-width: 480px) {
-      .countdown-grid { gap: 0.75rem !important; }
-      .countdown-box  { padding: 1.25rem 1rem !important; min-width: 72px !important; }
-      .countdown-num  { font-size: 2.5rem !important; }
-    }
-    @media (max-width: 600px) {
-      .org-divider { display: none !important; }
-    }
-    /* ── MOBILE HERO ── */
-    @media (max-width: 480px) {
-      .hero-tagline   { font-size: 0.44rem !important; letter-spacing: 0.35em !important; }
-      .hero-memory    { font-size: 1.1rem !important; }
-      .hero-years     { font-size: 0.5rem !important; }
-      .wri-strip      { padding: 0.75rem 1rem !important; }
-      .date-pill      { padding: 0.55rem 1.1rem !important; font-size: 0.55rem !important; }
-    }
+  a, button { -webkit-tap-highlight-color: transparent; }
 
-    /* ── TOUCH TARGETS ── */
-    a, button { -webkit-tap-highlight-color: transparent; }
+  /* ── ≤ 640px — nav breakpoint ── */
+  @media (max-width: 640px) {
+    .nav-links       { display: none !important; }
+    .nav-burger      { display: flex !important; }
+    .org-divider     { display: none !important; }
+    .life-img        { order: 1 !important; }
+    .life-text       { order: 2 !important; }
+    .tickets-grid    { flex-direction: column; align-items: center; }
+    .ticket-card     { width: min(400px, 92vw) !important; }
+  }
 
-    /* Prevent font scaling on orientation change */
-    @media (orientation: landscape) and (max-height: 500px) {
-      .hero-portrait { transform: scale(0.85); }
-    }
-  `;
+  /* ── ≥ 641px — hide mobile menu ── */
+  @media (min-width: 641px) {
+    .nav-mobile-menu { display: none !important; }
+  }
 
+  /* ── ≤ 480px — small phones ── */
+  @media (max-width: 480px) {
+    .hero-tagline  { font-size: 0.44rem !important; letter-spacing: 0.35em !important; }
+    .hero-memory   { font-size: 1.1rem !important; }
+    .hero-years    { font-size: 0.5rem !important; }
+    .wri-strip     { padding: 0.75rem 1rem !important; }
+    .date-pill     { padding: 0.55rem 1.1rem !important; font-size: 0.55rem !important; }
+    .countdown-grid{ gap: 0.75rem !important; }
+    .countdown-box { padding: 1.25rem 1rem !important; min-width: 72px !important; }
+    .countdown-num { font-size: 2.5rem !important; }
+  }
+
+  /* ── landscape phones ── */
+  @media (orientation: landscape) and (max-height: 500px) {
+    .hero-portrait { transform: scale(0.85); }
+  }
+`;
   return (
     <>
       <style>{css}</style>
@@ -656,8 +648,21 @@ const hasSections = phase >= 2 && cfg && (
         <Nav title={title} cfg={cfg}/>
 
         {/* ── HERO ── */}
-        <section id="hero" style={{ position:"relative", minHeight:"100vh", display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", textAlign:"center", padding:"7rem 1.25rem 4rem", overflow:"hidden" }}>
-
+      <section
+          id="hero"
+          style={{
+            position: "relative",
+            minHeight: "100vh",
+            width: "100%",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            textAlign: "center",
+            padding: "7rem 0 4rem",
+            overflow: "hidden"
+          }}
+        >
           <div style={{ position:"absolute", inset:0, background:"radial-gradient(ellipse 80% 60% at 50% 30%,rgba(122,28,46,.18) 0%,transparent 70%),radial-gradient(ellipse 50% 40% at 20% 80%,rgba(26,74,74,.1) 0%,transparent 60%),linear-gradient(180deg,#0a0a14 0%,#06060f 100%)" }}/>
           <div style={{ position:"absolute", width:"min(600px,90vw)", height:"min(600px,90vw)", border:"1px solid rgba(201,168,76,.04)", borderRadius:"50%", top:"50%", left:"50%", transform:"translate(-50%,-50%)", pointerEvents:"none" }}/>
 
