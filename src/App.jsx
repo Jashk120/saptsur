@@ -24,7 +24,7 @@ const LATA_LIFE = [
     years: "1929 – 1948",
     img: LATA_YOUNG,
     summary:
-      "Born Hema Mangeshkar on 28 September 1929 in Indore, she showed musical genius from childhood. Her father, Deenanath Mangeshkar — a celebrated Marathi classical singer and theatre actor — began training her before she could read. She performed on stage before the age of five. After his untimely death in 1942, a thirteen-year-old Lata shouldered the family's survival, singing in Marathi and Hindi films to support her mother and four younger siblings. Her pure, crystalline voice caught immediate attention in Bombay's film industry, and she began recording professionally by 1945 — launching what would become the longest and most celebrated career in Indian music history.",
+      "Born Hema Mangeshkar on 28 September 1929 in Indore, she showed musical genius from childhood. Her father, Mast.Pt.Dinanath  — a celebrated Marathi classical singer and theatre actor — began training her before she could read. She performed on stage before the age of five. After his untimely death in 1942, a thirteen-year-old Lata shouldered the family's survival, singing in Marathi and Hindi films to support her mother and four younger siblings. Her pure, crystalline voice caught immediate attention in Bombay's film industry, and she began recording professionally by 1945 — launching what would become the longest and most celebrated career in Indian music history.",
   },
   {
     era: "The Golden Voice",
@@ -522,7 +522,7 @@ export default function App() {
       m.name="viewport"; m.content="width=device-width,initial-scale=1,maximum-scale=1";
       document.head.appendChild(m);
     }
-    document.body.style.cssText = "background:#0a0a14;margin:0;overflow-x:hidden;";
+document.body.style.cssText = "background:#0a0a14;margin:0;overflow-x:hidden;max-width:100%;";
   }, []);
 
   useEffect(() => {
@@ -574,6 +574,17 @@ const css = `
     --midnight:#0a0a14; --ivory:#fdf7e8; --ivory-dim:#d4cfc4;
     --text-main:#e8e0d0; --text-dim:#a09888;
   }
+
+html, body {
+  max-width: 100%;
+
+}
+
+section {
+  max-width: 100%;
+ 
+}
+
   *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
   html { scroll-behavior:smooth; -webkit-text-size-adjust:100%; }
   body { color:var(--text-main); font-family:'Cormorant Garamond',serif; font-size:18px; line-height:1.7; }
