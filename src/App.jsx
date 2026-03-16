@@ -307,21 +307,94 @@ function PerformersSection({ performers }) {
 }
 function PerformerCard({ p }) {
   const [hov, setHov] = useState(false);
-  return (
+  const hasImg = p.imgUrl && p.imgUrl.trim() !== "";
+
+  const card = (
     <div
-      onMouseEnter={()=>setHov(true)} onMouseLeave={()=>setHov(false)}
-      style={{ background:hov?"rgba(201,168,76,.06)":"rgba(201,168,76,.025)", border:`1px solid ${hov?"rgba(201,168,76,.35)":"rgba(201,168,76,.12)"}`, padding:"2rem 1.5rem", textAlign:"center", transform:hov?"translateY(-4px)":"none", boxShadow:hov?"0 20px 60px rgba(201,168,76,.1)":"none", transition:"all .35s ease",
-        width:"min(280px,92vw)", flexShrink:0
-      }}>
-      {p.imgUrl
-        ? <img src={p.imgUrl} alt={p.name} style={{ width:72, height:72, borderRadius:"50%", objectFit:"cover", border:"1px solid rgba(201,168,76,.3)", margin:"0 auto 1.25rem", display:"block" }}/>
-        : <div style={{ width:72, height:72, background:"linear-gradient(135deg,rgba(201,168,76,.12),rgba(122,28,46,.12))", border:"1px solid rgba(201,168,76,.18)", borderRadius:"50%", margin:"0 auto 1.25rem", display:"flex", alignItems:"center", justifyContent:"center", fontSize:"1.7rem" }}>{p.emoji||"🎵"}</div>
-      }
-      <div style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"clamp(1rem,2vw,1.2rem)", fontWeight:600, color:"var(--ivory)", marginBottom:4 }}>{p.name}</div>
-      <div style={{ fontFamily:"'Cinzel',serif", fontSize:"0.52rem", letterSpacing:"0.2em", color:"var(--gold)", textTransform:"uppercase", marginBottom:"0.75rem" }}>{p.role}</div>
-      {p.desc && <div style={{ fontSize:"0.85rem", color:"var(--text-dim)", lineHeight:1.6 }}>{p.desc}</div>}
+      onMouseEnter={() => setHov(true)} onMouseLeave={() => setHov(false)}
+      style={{
+        width: "min(320px,92vw)",
+        flexShrink: 0,
+        border: `1px solid ${hov ? "rgba(201,168,76,.45)" : "rgba(201,168,76,.14)"}`,
+        background: hov ? "rgba(201,168,76,.05)" : "rgba(201,168,76,.02)",
+        transform: hov ? "translateY(-6px)" : "none",
+        boxShadow: hov ? "0 24px 70px rgba(201,168,76,.12)" : "none",
+        transition: "all .4s ease",
+        cursor: p.url ? "pointer" : "default",
+        position: "relative",
+        overflow: "hidden",
+      }}
+    >
+      {/* Corner accents */}
+      <div style={{ position:"absolute", top:8, left:8, width:12, height:12, borderTop:"1px solid rgba(201,168,76,.4)", borderLeft:"1px solid rgba(201,168,76,.4)", zIndex:2 }}/>
+      <div style={{ position:"absolute", top:8, right:8, width:12, height:12, borderTop:"1px solid rgba(201,168,76,.4)", borderRight:"1px solid rgba(201,168,76,.4)", zIndex:2 }}/>
+      <div style={{ position:"absolute", bottom:8, left:8, width:12, height:12, borderBottom:"1px solid rgba(201,168,76,.4)", borderLeft:"1px solid rgba(201,168,76,.4)", zIndex:2 }}/>
+      <div style={{ position:"absolute", bottom:8, right:8, width:12, height:12, borderBottom:"1px solid rgba(201,168,76,.4)", borderRight:"1px solid rgba(201,168,76,.4)", zIndex:2 }}/>
+
+      {/* Top accent line */}
+      <div style={{ height:2, background:`linear-gradient(90deg,transparent,${hov?"rgba(201,168,76,.7)":"rgba(201,168,76,.25)"},transparent)`, transition:"background .4s" }}/>
+
+      <div style={{ padding:"2rem 1.75rem 1.75rem", display:"flex", flexDirection:"column", alignItems:"center", textAlign:"center" }}>
+
+        {/* Avatar */}
+        <div style={{ position:"relative", marginBottom:"1.5rem" }}>
+          {/* Outer glow ring */}
+          <div style={{ position:"absolute", inset:-6, borderRadius:"50%", background:`radial-gradient(circle,${hov?"rgba(201,168,76,.2)":"rgba(201,168,76,.08)"} 0%,transparent 70%)`, transition:"background .4s" }}/>
+          <div style={{ position:"absolute", inset:-3, borderRadius:"50%", border:`1px solid ${hov?"rgba(201,168,76,.5)":"rgba(201,168,76,.2)"}`, transition:"border-color .4s" }}/>
+
+          {hasImg
+            ? <img src={p.imgUrl} alt={p.name} style={{ width:100, height:100, borderRadius:"50%", objectFit:"cover", objectPosition:"center top", border:"2px solid rgba(201,168,76,.45)", display:"block", position:"relative", zIndex:1 }}/>
+            : <div style={{ width:100, height:100, borderRadius:"50%", background:"linear-gradient(135deg,rgba(201,168,76,.15),rgba(122,28,46,.15))", border:"2px solid rgba(201,168,76,.3)", display:"flex", alignItems:"center", justifyContent:"center", fontSize:"2.2rem", position:"relative", zIndex:1 }}>
+                {p.emoji || "🎵"}
+              </div>
+          }
+        </div>
+
+        {/* Name */}
+        <div style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"clamp(1.15rem,2.5vw,1.4rem)", fontWeight:600, color:"var(--ivory)", letterSpacing:"0.04em", lineHeight:1.2, marginBottom:"0.4rem" }}>
+          {p.name}
+        </div>
+
+        {/* Role pill */}
+        <div style={{ display:"inline-flex", alignItems:"center", gap:"0.4rem", background:"rgba(201,168,76,.08)", border:"1px solid rgba(201,168,76,.2)", borderRadius:100, padding:"0.3rem 0.85rem", marginBottom:"1.25rem" }}>
+          <div style={{ width:4, height:4, borderRadius:"50%", background:"var(--gold)", opacity:.8 }}/>
+          <span style={{ fontFamily:"'Cinzel',serif", fontSize:"0.48rem", letterSpacing:"0.22em", color:"var(--gold)", textTransform:"uppercase" }}>
+            {p.role}
+          </span>
+        </div>
+
+        {/* Divider */}
+        <div style={{ display:"flex", alignItems:"center", gap:"0.5rem", width:"100%", marginBottom:"1.25rem" }}>
+          <div style={{ flex:1, height:1, background:"linear-gradient(to right,transparent,rgba(201,168,76,.2))" }}/>
+          <div style={{ width:4, height:4, background:"var(--gold)", transform:"rotate(45deg)", opacity:.4 }}/>
+          <div style={{ flex:1, height:1, background:"linear-gradient(to left,transparent,rgba(201,168,76,.2))" }}/>
+        </div>
+
+        {/* Desc */}
+        {p.desc && (
+          <div style={{ fontFamily:"'Cormorant Garamond',serif", fontStyle:"italic", fontSize:"clamp(0.88rem,1.8vw,0.95rem)", color:"var(--text-dim)", lineHeight:1.75, letterSpacing:"0.02em" }}>
+            {p.desc}
+          </div>
+        )}
+
+        {/* Link hint */}
+        {p.url && (
+          <div style={{ marginTop:"1.25rem", fontFamily:"'Cinzel',serif", fontSize:"0.46rem", letterSpacing:"0.22em", color: hov ? "var(--gold)" : "var(--text-dim)", textTransform:"uppercase", transition:"color .3s" }}>
+            View Profile →
+          </div>
+        )}
+      </div>
     </div>
   );
+
+  if (p.url) {
+    return (
+      <a href={p.url} target="_blank" rel="noopener noreferrer" style={{ textDecoration:"none" }}>
+        {card}
+      </a>
+    );
+  }
+  return card;
 }
 
 // ── VENUE ─────────────────────────────────────────────────────────────────────
@@ -529,6 +602,7 @@ function Nav({ title, cfg }) {
     cfg?.venue?.name        ? ["#venue","Venue"]    : null,
     cfg?.schedule?.length   ? ["#schedule","Schedule"] : null,
     cfg?.tickets?.length    ? ["#tickets","Tickets"] : null,
+    cfg?.organizers?.length ? ["#contact","Contact"] : null,
   ].filter(Boolean);
 
   return (
@@ -585,6 +659,157 @@ function Nav({ title, cfg }) {
   );
 }
 
+// ── CONTACT ───────────────────────────────────────────────────────────────────
+function ContactSection({ organizers, footerTagline, copyright }) {
+  if (!organizers?.length) return null;
+
+  const visible = organizers.filter(org => org.show === true);
+
+  if (!visible.length) return null;
+
+  const isSingle = visible.length === 1;
+
+  return (
+    <Reveal>
+      <section id="contact" style={{
+        padding: "5rem clamp(1rem,5vw,5rem)",
+        maxWidth: 1200,
+        margin: "0 auto",
+        textAlign: "center",
+      }}>
+        <SectionLabel>Get in Touch</SectionLabel>
+        <SectionTitle>Contact the <GoldEm>Organisers</GoldEm></SectionTitle>
+
+        <div style={{
+          display: "flex",
+          flexWrap: "wrap",
+          justifyContent: "center",
+          gap: "1.5rem",
+          marginTop: "2.5rem",
+        }}>
+          {visible.map((org, i) => (
+            <ContactCard key={i} org={org} fullWidth={isSingle} />
+          ))}
+        </div>
+
+        {/* Footer tagline + copyright */}
+        <div style={{
+          marginTop: "5rem",
+          paddingTop: "2rem",
+          borderTop: "1px solid rgba(201,168,76,.1)",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          gap: "0.75rem",
+        }}>
+          <div style={{
+            fontFamily: "'Cormorant Garamond',serif",
+            fontStyle: "italic",
+            fontSize: "clamp(0.9rem,2vw,1.1rem)",
+            color: "var(--gold-pale)",
+            opacity: 0.7,
+            letterSpacing: "0.08em",
+          }}>
+            {footerTagline}
+          </div>
+          <div style={{
+            fontFamily: "'Cinzel',serif",
+            fontSize: "0.5rem",
+            letterSpacing: "0.2em",
+            color: "var(--text-dim)",
+            opacity: 0.5,
+            textTransform: "uppercase",
+          }}>
+            {copyright}
+          </div>
+        </div>
+      </section>
+    </Reveal>
+  );
+}
+function ContactCard({ org, fullWidth = false }) {
+  const [hov, setHov] = useState(false);
+
+  const phones    = org.phone   ? (Array.isArray(org.phone)   ? org.phone   : [org.phone])   : [];
+  const emails    = org.email   ? (Array.isArray(org.email)   ? org.email   : [org.email])   : [];
+  const addresses = org.address ? (Array.isArray(org.address) ? org.address : [org.address]) : [];
+
+  return (
+    <div
+      onMouseEnter={() => setHov(true)}
+      onMouseLeave={() => setHov(false)}
+      style={{
+        width: fullWidth ? "min(720px,92vw)" : "min(300px,92vw)",
+        padding: "2rem 1.75rem",
+        border: `1px solid ${hov ? "rgba(201,168,76,.4)" : "rgba(201,168,76,.14)"}`,
+        background: hov ? "rgba(201,168,76,.05)" : "rgba(201,168,76,.02)",
+        transform: hov ? "translateY(-4px)" : "none",
+        boxShadow: hov ? "0 20px 60px rgba(201,168,76,.08)" : "none",
+        transition: "all .35s ease",
+        textAlign: "left",
+        position: "relative",
+        // two-column layout for contact rows when full width
+        ...(fullWidth && { display: "grid", gridTemplateRows: "auto auto 1fr", }),
+      }}
+    >
+      {/* Corner accents */}
+      <div style={{ position:"absolute", top:8, left:8, width:10, height:10, borderTop:"1px solid rgba(201,168,76,.4)", borderLeft:"1px solid rgba(201,168,76,.4)" }}/>
+      <div style={{ position:"absolute", bottom:8, right:8, width:10, height:10, borderBottom:"1px solid rgba(201,168,76,.4)", borderRight:"1px solid rgba(201,168,76,.4)" }}/>
+
+      {/* Logo + name */}
+      <div style={{ display:"flex", alignItems:"center", gap:"0.85rem", marginBottom:"1.5rem" }}>
+        {org.logoUrl && (
+          <div style={{ width:44, height:44, borderRadius:"50%", border:"1px solid rgba(201,168,76,.3)", overflow:"hidden", flexShrink:0 }}>
+            <img src={org.logoUrl} alt={org.name} style={{ width:"100%", height:"100%", objectFit:"cover" }}/>
+          </div>
+        )}
+        <div>
+          <div style={{ fontFamily:"'Cinzel',serif", fontSize:"0.56rem", letterSpacing:"0.25em", color:"var(--gold)", textTransform:"uppercase", lineHeight:1.6 }}>
+            {org.short || org.name}
+          </div>
+          <div style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"clamp(0.85rem,1.8vw,0.95rem)", color:"var(--ivory-dim)", lineHeight:1.4, marginTop:2 }}>
+            {org.name}
+          </div>
+        </div>
+      </div>
+
+      <div style={{ width:32, height:1, background:"var(--gold)", opacity:.3, marginBottom:"1.25rem" }}/>
+
+      {/* Contact rows — two columns if fullWidth */}
+      <div style={{
+        display: fullWidth ? "grid" : "block",
+        gridTemplateColumns: fullWidth ? "repeat(auto-fit, minmax(200px, 1fr))" : undefined,
+        gap: fullWidth ? "0 2rem" : undefined,
+      }}>
+        {addresses.map((a, i) => <ContactRow key={`a${i}`} icon="📍" text={a} />)}
+        {phones.map((p, i)    => <ContactRow key={`p${i}`} icon="📞" text={p} href={`tel:${p}`} />)}
+        {emails.map((e, i)    => <ContactRow key={`e${i}`} icon="✉️" text={e} href={`mailto:${e}`} />)}
+      </div>
+    </div>
+  );
+}
+function ContactRow({ icon, text, href }) {
+  const content = (
+    <div style={{ display:"flex", alignItems:"flex-start", gap:"0.6rem", marginBottom:"0.75rem" }}>
+      <span style={{ fontSize:"0.75rem", flexShrink:0, marginTop:1, opacity:0.7 }}>{icon}</span>
+      <span style={{
+        fontFamily: "'Cormorant Garamond',serif",
+        fontSize: "clamp(0.82rem,1.6vw,0.9rem)",
+        color: href ? "var(--gold-pale)" : "var(--text-dim)",
+        lineHeight: 1.5,
+      }}>{text}</span>
+    </div>
+  );
+  if (!href) return content;
+  return (
+    <a href={href} style={{ textDecoration:"none", display:"block" }}
+      onMouseEnter={e => e.currentTarget.querySelector("span:last-child").style.color="var(--gold)"}
+      onMouseLeave={e => e.currentTarget.querySelector("span:last-child").style.color="var(--gold-pale)"}
+    >
+      {content}
+    </a>
+  );
+}
 // ══════════════════════════════════════════════════════════════════════════════
 //  MAIN APP
 // ══════════════════════════════════════════════════════════════════════════════
@@ -919,14 +1144,16 @@ section {
         {phase >= 2 && cfg?.tickets?.length > 0 && <Divider/>}
         {phase >= 2 && <TicketsSection tickets={cfg?.tickets}/>}
 
-        {/* ── FOOTER ── */}
-      <div style={{ overflow:"hidden", height:36, display:"flex", alignItems:"center", justifyContent:"center" }}>
-  <img src={SAPTSUR_IMG} alt={title}
-    style={{ height:80, width:"auto", mixBlendMode:"screen", filter:"brightness(1.05) drop-shadow(0 0 8px rgba(201,168,76,.3))", marginTop:8 }}
-    onError={e=>e.target.style.display="none"}
-  />
-</div>
+      {/* ── CONTACT + FOOTER ── */}
+        {cfg?.tickets?.length > 0 && <Divider/>}
+        <ContactSection
+          organizers={cfg?.organizers}
+          footerTagline={footerTagline}
+          copyright={copyright}
+        />
 
+      
+        
       </div>
     </>
   );
