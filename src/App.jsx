@@ -6,9 +6,10 @@ import lataHeroImg  from "./assets/lata-hero.png";
 import lataMiddImg  from "./assets/Lata_Young.jfif";
 import lataYoungImg from "./assets/Lata_MID.jfif";
 import iprogLogo    from "./assets/I_Prog_LOGO.jpeg";
+import aahLogo      from "./assets/Adhar_ashram_logo.webp"
 
 const SSV_LOGO    = ssvLogo;
-const WRI_LOGO    = null; // replace with wriLogo import when available
+const WRI_LOGO    = aahLogo; // replace with wriLogo import when available
 const IPROG_LOGO  = iprogLogo;
 const SAPTSUR_IMG = saptsurImg;
 const LATA_HERO   = lataHeroImg;
@@ -386,8 +387,12 @@ function TicketsSection({ tickets }) {
     <section ref={ref} id="tickets" style={{ padding:"5rem clamp(1rem,5vw,5rem)", textAlign:"center", background:"linear-gradient(180deg,transparent,rgba(201,168,76,.02),transparent)", opacity:vis?1:0, transform:vis?"none":"translateY(48px)", transition:"opacity .9s ease,transform .9s ease" }}>
       <SectionLabel>Reserve Your Place</SectionLabel>
       <SectionTitle>Be Part of <GoldEm>History</GoldEm></SectionTitle>
-      <div className="tickets-grid" style={{ display:"flex", justifyContent:"center", gap:"1.5rem", flexWrap:"wrap", marginTop:"2.5rem" }}>
-        {tickets.map((t,i)=><TicketCard key={i} t={t}/>)}
+     <div className="tickets-grid" style={{ display:"flex", justifyContent:"center", gap:"1.5rem", flexWrap:"wrap", marginTop:"2.5rem" }}>
+        {tickets.map((t, i) => (
+          <div key={i} style={{ paddingTop: "16px" }}>
+            <TicketCard t={t} />
+          </div>
+        ))}
       </div>
     </section>
   );
@@ -395,21 +400,99 @@ function TicketsSection({ tickets }) {
 
 function TicketCard({ t }) {
   const [hov, setHov] = useState(false);
+
+  const availColor = { available: "#4caf6e", limited: "#c9a84c", soldout: "#e24b4a" };
+
   return (
     <div
       className="ticket-card"
-      onMouseEnter={()=>setHov(true)} onMouseLeave={()=>setHov(false)}
-      style={{ background:t.featured?"linear-gradient(135deg,rgba(201,168,76,.1),rgba(122,28,46,.07))":"rgba(201,168,76,.03)", border:`1px solid ${t.featured?"var(--gold)":"rgba(201,168,76,.18)"}`, padding:"2.5rem 2rem", width:"min(280px,90vw)", boxShadow:hov?"0 28px 70px rgba(201,168,76,.15)":t.featured?"0 0 40px rgba(201,168,76,.12)":"none", transform:hov?"translateY(-6px)":"none", transition:"all .35s ease", textAlign:"left" }}>
-      <div style={{ fontFamily:"'Cinzel',serif", fontSize:"0.58rem", letterSpacing:"0.4em", color:"var(--gold)", textTransform:"uppercase", marginBottom:"1.25rem" }}>{t.tier}</div>
-      <div style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"2.8rem", fontWeight:300, color:"var(--ivory)", lineHeight:1 }}>{t.price}</div>
-      <div style={{ fontFamily:"'Cinzel',serif", fontSize:"0.58rem", color:"var(--text-dim)", marginBottom:"1.5rem", marginTop:4 }}>{t.currency}</div>
-      <ul style={{ listStyle:"none", marginBottom:"1.75rem" }}>
-        {t.features?.map((f,i)=>(
-          <li key={i} style={{ padding:"0.35rem 0", fontSize:"0.88rem", color:"var(--text-dim)", borderBottom:"1px solid rgba(201,168,76,.06)" }}>
-            <span style={{ color:"var(--gold)", marginRight:8, fontSize:"0.5rem" }}>✦</span>{f}
+      onMouseEnter={() => setHov(true)}
+      onMouseLeave={() => setHov(false)}
+      style={{
+        width: "min(240px,90vw)", padding: "2rem 1.5rem 1.5rem",
+        border: t.featured ? "1.5px solid var(--gold)" : "0.5px solid rgba(201,168,76,.25)",
+        borderRadius: 2, position: "relative",
+        background: "var(--surface)",
+        transform: hov ? "translateY(-5px)" : "none",
+        transition: "transform .3s ease",
+        textAlign: "left",
+      }}>
+
+      {t.badge && (
+        <div style={{ position:"absolute", top:-12, left:"50%", transform:"translateX(-50%)",
+          background:"var(--gold)", color:"#1a0e02", fontFamily:"'Cinzel',serif",
+          fontSize:"9px", letterSpacing:".18em", padding:"4px 14px", borderRadius:1,
+          whiteSpace:"nowrap" }}>
+          {t.badge}
+        </div>
+      )}
+
+      <div style={{ fontFamily:"'Cinzel',serif", fontSize:"9px", letterSpacing:".35em",
+        color:"var(--gold)", textTransform:"uppercase", marginBottom:"1.25rem" }}>
+        {t.tier}
+      </div>
+
+      <div style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"3rem",
+        fontWeight:300, color:"var(--ivory)", lineHeight:1 }}>
+        {t.price}
+      </div>
+      <div style={{ fontFamily:"'Cinzel',serif", fontSize:"8px", letterSpacing:".15em",
+        color:"var(--text-dim)", marginTop:4, marginBottom:"1.25rem" }}>
+        {t.currency}
+      </div>
+
+      <hr style={{ border:"none", borderTop:"0.5px solid rgba(201,168,76,.15)", margin:"1rem 0" }} />
+
+      {t.seatSection && (
+        <>
+          <div style={{ fontFamily:"'Cinzel',serif", fontSize:"8px", letterSpacing:".18em",
+            color:"var(--text-dim)", textTransform:"uppercase", marginBottom:4 }}>
+            Seating
+          </div>
+          <div style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"1rem",
+            color:"var(--ivory)", marginBottom:"1rem" }}>
+            {t.seatSection} · {t.features[0]}
+          </div>
+        </>
+      )}
+
+      <ul style={{ listStyle:"none", margin:"0 0 1.5rem", padding:0 }}>
+        {t.features?.slice(t.seatSection ? 1 : 0).map((f, i) => (
+          <li key={i} style={{ display:"flex", alignItems:"center", gap:8,
+            fontFamily:"'Cinzel',serif", fontSize:"8px", letterSpacing:".12em",
+            color:"var(--text-dim)", padding:"5px 0",
+            borderBottom:"0.5px solid rgba(201,168,76,.08)" }}>
+            <span style={{ width:4, height:4, borderRadius:"50%",
+              background:"var(--gold)", flexShrink:0, display:"inline-block" }} />
+            {f}
           </li>
         ))}
       </ul>
+
+      {t.availability && (
+        <div style={{ fontFamily:"'Cinzel',serif", fontSize:"8px", letterSpacing:".12em",
+          color:"var(--text-dim)", textAlign:"center", marginBottom:10 }}>
+          <span style={{ display:"inline-block", width:5, height:5, borderRadius:"50%",
+            background: availColor[t.availability] ?? availColor.available,
+            marginRight:5, verticalAlign:"middle" }} />
+          {{ available:"Available", limited:"Filling fast", soldout:"Sold Out" }[t.availability]}
+        </div>
+      )}
+
+      <a href={t.url} target="_blank" rel="noopener noreferrer"
+        style={{
+          display:"block", width:"100%", padding:"10px 0",
+          fontFamily:"'Cinzel',serif", fontSize:"9px", letterSpacing:".22em",
+          textAlign:"center", textDecoration:"none", textTransform:"uppercase",
+          borderRadius:1, transition:"background .2s, color .2s",
+          background: t.featured ? "var(--gold)" : "transparent",
+          color: t.featured ? "#1a0e02" : "var(--gold)",
+          border: t.featured ? "none" : "0.5px solid var(--gold)",
+          pointerEvents: t.availability === "soldout" ? "none" : "auto",
+          opacity: t.availability === "soldout" ? 0.4 : 1,
+        }}>
+        {t.availability === "soldout" ? "Sold Out" : (t.ctaLabel || "Book Now")}
+      </a>
     </div>
   );
 }
@@ -540,7 +623,7 @@ document.body.style.cssText = "background:#0a0a14;margin:0;overflow-x:hidden;max
           const n = o.name?.toLowerCase() || "";
           if (n.includes("sharada"))  return { ...o, logoUrl: SSV_LOGO };
           if (n.includes("progress")) return { ...o, logoUrl: IPROG_LOGO };
-          if (n.includes("world") && WRI_LOGO) return { ...o, logoUrl: WRI_LOGO };
+          if (n.includes("adhar")) return { ...o, logoUrl: WRI_LOGO };
           return o;
         });
       }
