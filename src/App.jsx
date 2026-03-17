@@ -45,6 +45,30 @@ const LATA_LIFE = [
 const FONT_LINK =
   "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Cinzel:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@300;400;500&display=swap";
 
+  // ── CAUSE ─────────────────────────────────────────────────────────────────────
+const CAUSE_ORGS = [
+  {
+    name: "I Progress Foundation",
+    logo: IPROG_LOGO,
+    desc: "A charitable organisation working for the development of specially-abled individuals who live immersed in a world of their own.",
+    emoji: "🌱",
+  },
+  {
+    name: "Aadhar Old Age Home",
+    logo: WRI_LOGO,
+    desc: "Providing shelter and care to 25 elderly residents — men and women — in Chhatrapati Sambhajinagar.",
+    emoji: "🏡",
+  },
+];
+
+const CAUSE_TEXT_MR =
+  "रसिकहो, आज पुन्हा एकदा एका सामाजिक उपक्रमासाठी तुम्हाला साद घालतोय. जगात आपल्या आजूबाजूला असे अनेक जण वावरतात जे स्वतः एका वेगळ्याच विश्वात रममाण असतात. अश्या विशेष लोकांच्या विकासासाठी आय प्रोग्रेस फौंडेशन कार्यरत आहे. तसेच पंचवीस वृद्ध यांना आधार वृद्धाश्रमात आधार मिळत आहे. आम्ही आमच्या कलेच्या माध्यमातून ही सेवा करण्याचा एक छोटासा प्रयत्न करत आहोत.";
+
+const CAUSE_TEXT_EN =
+  "Dear Patrons, we reach out to you for a social cause. We share this world with many individuals who live immersed in a universe entirely their own. To foster the development of such special individuals, the I Progress Foundation is actively working within our city. Additionally, twenty-five elderly residents are finding shelter at the Aadhar Old Age Home in Chhatrapati Sambhajinagar. We are making a humble attempt to serve through the medium of our art.";
+
+const CAUSE_CTA_URL = "https://in.bookmyshow.com/events/tere-sur-aur-mere-geet-2026/ET00491309";
+
 // ── hooks ─────────────────────────────────────────────────────────────────────
 function useReveal() {
   const ref = useRef(null);
@@ -597,6 +621,7 @@ function Nav({ title, cfg }) {
 
   const links = [
     ["#legacy","Legacy"],
+     ["#cause","Cause"], 
     cfg?.songs?.length      ? ["#songs","Songs"]    : null,
     cfg?.performers?.length ? ["#performers","Artists"] : null,
     cfg?.venue?.name        ? ["#venue","Venue"]    : null,
@@ -808,6 +833,262 @@ function ContactRow({ icon, text, href }) {
     >
       {content}
     </a>
+  );
+}
+
+
+
+function CauseSection({ cfg }) {
+  const [ref, vis] = useReveal();
+
+  return (
+    <section
+      ref={ref}
+      id="cause"
+      style={{
+        padding: "5rem clamp(1rem,5vw,5rem)",
+        maxWidth: 1200,
+        margin: "0 auto",
+        opacity: vis ? 1 : 0,
+        transform: vis ? "none" : "translateY(48px)",
+        transition: "opacity .9s ease, transform .9s ease",
+      }}
+    >
+      <SectionLabel>Our Purpose</SectionLabel>
+      <SectionTitle>
+        Music as <GoldEm>Seva</GoldEm>
+      </SectionTitle>
+
+      {/* Org cards */}
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(min(260px,100%), 1fr))",
+          gap: "1.5rem",
+          marginBottom: "3.5rem",
+        }}
+      >
+        {CAUSE_ORGS.map((org, i) => (
+          <CauseOrgCard key={i} org={org} />
+        ))}
+      </div>
+
+      {/* Bilingual message panel */}
+      <div
+        style={{
+          border: "1px solid rgba(201,168,76,.18)",
+          borderLeft: "3px solid rgba(201,168,76,.6)",
+          background: "linear-gradient(135deg,rgba(201,168,76,.05),rgba(201,168,76,.01))",
+          padding: "2.5rem clamp(1.25rem,4vw,2.5rem)",
+          position: "relative",
+          overflow: "hidden",
+        }}
+      >
+        {/* Decorative quote mark */}
+        <div
+          style={{
+            position: "absolute",
+            top: -10,
+            right: 24,
+            fontFamily: "'Cormorant Garamond',serif",
+            fontSize: "8rem",
+            color: "rgba(201,168,76,.06)",
+            lineHeight: 1,
+            pointerEvents: "none",
+            userSelect: "none",
+          }}
+        >
+          "
+        </div>
+
+        {/* Marathi */}
+        <div style={{ marginBottom: "1.75rem" }}>
+          <div
+            style={{
+              fontFamily: "'Cinzel',serif",
+              fontSize: "0.48rem",
+              letterSpacing: "0.4em",
+              color: "var(--gold)",
+              opacity: 0.6,
+              textTransform: "uppercase",
+              marginBottom: "0.75rem",
+            }}
+          >
+            मराठी
+          </div>
+          <p
+            style={{
+              fontFamily: "'Noto Sans Devanagari', sans-serif",
+              fontSize: "clamp(0.88rem,1.8vw,1rem)",
+              color: "var(--text-dim)",
+              lineHeight: 2,
+              fontWeight: 300,
+            }}
+          >
+            🙏🏻 {CAUSE_TEXT_MR}
+          </p>
+        </div>
+
+        {/* Divider rule */}
+        <div
+          style={{
+            height: 1,
+            background: "linear-gradient(to right,transparent,rgba(201,168,76,.25),transparent)",
+            margin: "1.5rem 0",
+          }}
+        />
+
+        {/* English */}
+        <div style={{ marginBottom: "1.75rem" }}>
+          <div
+            style={{
+              fontFamily: "'Cinzel',serif",
+              fontSize: "0.48rem",
+              letterSpacing: "0.4em",
+              color: "var(--gold)",
+              opacity: 0.6,
+              textTransform: "uppercase",
+              marginBottom: "0.75rem",
+            }}
+          >
+            English
+          </div>
+          <p
+            style={{
+              fontFamily: "'Cormorant Garamond',serif",
+              fontStyle: "italic",
+              fontSize: "clamp(0.95rem,2vw,1.1rem)",
+              color: "var(--text-dim)",
+              lineHeight: 1.9,
+            }}
+          >
+            🙏🏻 {CAUSE_TEXT_EN}
+          </p>
+        </div>
+
+        {/* Ticket nudge */}
+        <div
+          style={{
+            background: "rgba(201,168,76,.07)",
+            border: "1px solid rgba(201,168,76,.2)",
+            padding: "1rem 1.25rem",
+            marginBottom: "1.5rem",
+            display: "flex",
+            alignItems: "flex-start",
+            gap: "0.75rem",
+          }}
+        >
+          <span style={{ fontSize: "1.1rem", flexShrink: 0, marginTop: 2 }}>🎟</span>
+          <p
+            style={{
+              fontFamily: "'Cormorant Garamond',serif",
+              fontSize: "clamp(0.9rem,1.8vw,1rem)",
+              color: "var(--ivory-dim)",
+              lineHeight: 1.8,
+            }}
+          >
+            By purchasing just one ticket — at{" "}
+            <span style={{ color: "var(--gold)" }}>₹200, ₹300, or ₹500</span>{" "}
+            as per your discretion — your contribution goes directly to both
+            these organisations. Every seat filled is an act of <em>seva</em>.
+          </p>
+        </div>
+
+        {/* Signature */}
+        <div
+          style={{
+            fontFamily: "'Cormorant Garamond',serif",
+            fontStyle: "italic",
+            fontSize: "clamp(0.88rem,1.8vw,1rem)",
+            color: "var(--gold-pale)",
+            opacity: 0.75,
+            textAlign: "right",
+          }}
+        >
+          — Kedar, Minal &amp; Vijay Deshmukh 🙏🏻
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function CauseOrgCard({ org }) {
+  const [hov, setHov] = useState(false);
+  return (
+    <div
+      onMouseEnter={() => setHov(true)}
+      onMouseLeave={() => setHov(false)}
+      style={{
+        border: `1px solid ${
+          hov ? "rgba(201,168,76,.4)" : "rgba(201,168,76,.14)"
+        }`,
+        background: hov ? "rgba(201,168,76,.05)" : "rgba(201,168,76,.02)",
+        transform: hov ? "translateY(-5px)" : "none",
+        boxShadow: hov ? "0 20px 60px rgba(201,168,76,.1)" : "none",
+        transition: "all .35s ease",
+        padding: "1.75rem",
+        display: "flex",
+        gap: "1.25rem",
+        alignItems: "flex-start",
+        position: "relative",
+      }}
+    >
+      {/* Corner accents */}
+      <div style={{ position:"absolute", top:8, left:8, width:10, height:10, borderTop:"1px solid rgba(201,168,76,.35)", borderLeft:"1px solid rgba(201,168,76,.35)" }}/>
+      <div style={{ position:"absolute", bottom:8, right:8, width:10, height:10, borderBottom:"1px solid rgba(201,168,76,.35)", borderRight:"1px solid rgba(201,168,76,.35)" }}/>
+
+      {/* Logo */}
+      <div
+        style={{
+          width: 54,
+          height: 54,
+          borderRadius: "50%",
+          border: "1px solid rgba(201,168,76,.35)",
+          overflow: "hidden",
+          flexShrink: 0,
+          background: "rgba(201,168,76,.07)",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          fontSize: "1.4rem",
+        }}
+      >
+        {org.logo ? (
+          <img
+            src={org.logo}
+            alt={org.name}
+            style={{ width: "100%", height: "100%", objectFit: "cover" }}
+          />
+        ) : (
+          org.emoji
+        )}
+      </div>
+
+      <div>
+        <div
+          style={{
+            fontFamily: "'Cinzel',serif",
+            fontSize: "0.54rem",
+            letterSpacing: "0.22em",
+            color: "var(--gold)",
+            textTransform: "uppercase",
+            marginBottom: "0.5rem",
+          }}
+        >
+          {org.name}
+        </div>
+        <p
+          style={{
+            fontFamily: "'Cormorant Garamond',serif",
+            fontSize: "clamp(0.88rem,1.8vw,0.97rem)",
+            color: "var(--text-dim)",
+            lineHeight: 1.8,
+          }}
+        >
+          {org.desc}
+        </p>
+      </div>
+    </div>
   );
 }
 // ══════════════════════════════════════════════════════════════════════════════
@@ -1127,6 +1408,9 @@ section {
         {/* ── LATA LIFE ── */}
         <LataLifeSection/>
 
+        <Divider/>
+               {/* ── CAUSE ── */}           {/* 👈 ADD THESE TWO LINES */}
+        <CauseSection cfg={cfg}/>
         <Divider/>
 
         {/* ── CONDITIONAL SECTIONS ── */}
