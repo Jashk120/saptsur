@@ -62,8 +62,7 @@ const CAUSE_ORGS = [
 ];
 
 const CAUSE_TEXT_MR =
-  "रसिकहो, आज पुन्हा एकदा एका सामाजिक उपक्रमासाठी तुम्हाला साद घालतोय. जगात आपल्या आजूबाजूला असे अनेक जण वावरतात जे स्वतः एका वेगळ्याच विश्वात रममाण असतात. अश्या विशेष लोकांच्या विकासासाठी आय प्रोग्रेस फौंडेशन कार्यरत आहे. तसेच पंचवीस वृद्ध यांना आधार वृद्धाश्रमात आधार मिळत आहे. आम्ही आमच्या कलेच्या माध्यमातून ही सेवा करण्याचा एक छोटासा प्रयत्न करत आहोत.";
-
+  "प्रिय रसिकहो, आम्ही तुम्हाला एका सामाजिक कार्यासाठी साद घालतो. आपण असे अनेक व्यक्तींसोबत हे जग सामायिक करतो जे पूर्णपणे स्वतःच्याच विश्वात रममाण असतात. अशा विशेष व्यक्तींच्या विकासासाठी आय प्रोग्रेस फाउंडेशन आपल्या शहरात सक्रियपणे कार्यरत आहे. याशिवाय, पंचवीस (25) वृद्ध स्त्री-पुरुष रहिवाशांना छत्रपती संभाजीनगर येथील आधार वृद्धाश्रमात आश्रय मिळत आहे. आम्ही आमच्या कलेच्या माध्यमातून सेवा करण्याचा एक नम्र प्रयत्न करत आहोत.";
 const CAUSE_TEXT_EN =
   "Dear Patrons, we reach out to you for a social cause. We share this world with many individuals who live immersed in a universe entirely their own. To foster the development of such special individuals, the I Progress Foundation is actively working within our city. Additionally, twenty-five elderly residents are finding shelter at the Aadhar Old Age Home in Chhatrapati Sambhajinagar. We are making a humble attempt to serve through the medium of our art.";
 
@@ -151,7 +150,7 @@ function Divider() {
 
 function SectionLabel({ children }) {
   return (
-    <div style={{ fontFamily:"'Cinzel',serif", fontSize:"0.58rem", letterSpacing:"0.6em", color:"var(--gold)", textTransform:"uppercase", marginBottom:"0.6rem" }}>
+    <div style={{ fontFamily:"'Cinzel',serif", fontSize:"0.95rem", letterSpacing:"0.6em", color:"var(--gold)", textTransform:"uppercase", marginBottom:"0.6rem" }}>
       {children}
     </div>
   );
@@ -159,7 +158,7 @@ function SectionLabel({ children }) {
 
 function GoldEm({ children }) {
   return (
-    <em style={{ fontStyle:"italic", background:"linear-gradient(90deg,var(--gold),var(--gold-pale),var(--gold))", backgroundSize:"200%", WebkitBackgroundClip:"text", WebkitTextFillColor:"transparent", animation:"shimmer 3s linear infinite" }}>
+    <em style={{ fontStyle:"italic", fontSize:"1.15em", background:"linear-gradient(90deg,var(--gold),var(--gold-pale),var(--gold))", backgroundSize:"200%", WebkitBackgroundClip:"text", WebkitTextFillColor:"transparent", animation:"shimmer 3s linear infinite" }}>
       {children}
     </em>
   );
@@ -167,13 +166,13 @@ function GoldEm({ children }) {
 
 function SectionTitle({ children }) {
   return (
-    <h2 style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"clamp(1.7rem,4vw,3.2rem)", fontWeight:300, lineHeight:1.15, marginBottom:"2rem" }}>
+    <h2 style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"clamp(2.2rem,4vw,3.6rem)", fontWeight:300, lineHeight:1.15, marginBottom:"2rem" }}>
       {children}
     </h2>
   );
 }
 
-function PortraitCircle({ src, alt, size="min(220px,55vw)", glowColor="rgba(201,168,76,.18)" }) {
+function PortraitCircle({ src, alt, size="min(300px,72vw)", glowColor="rgba(201,168,76,.18)" }) {
   const [err, setErr] = useState(false);
   return (
     <div style={{ position:"relative", display:"flex", alignItems:"center", justifyContent:"center", width:size, height:size, flexShrink:0 }}>
@@ -186,57 +185,79 @@ function PortraitCircle({ src, alt, size="min(220px,55vw)", glowColor="rgba(201,
         ? <img src={src} alt={alt} onError={()=>setErr(true)}
             style={{ width:"100%", height:"100%", borderRadius:"50%", objectFit:"cover", objectPosition:"center top", border:"2px solid rgba(201,168,76,.65)", boxShadow:"0 0 50px rgba(201,168,76,.22),0 0 100px rgba(201,168,76,.07)", display:"block", filter:"sepia(10%) contrast(1.06) brightness(.95)" }}
           />
-        : <div style={{ width:"100%", height:"100%", borderRadius:"50%", background:"linear-gradient(135deg,rgba(122,28,46,.3),rgba(201,168,76,.08))", display:"flex", alignItems:"center", justifyContent:"center", fontSize:"3rem" }}>🎵</div>
+        : <div style={{ width:"100%", height:"100%", borderRadius:"50%", background:"linear-gradient(135deg,rgba(122,28,46,.3),rgba(201,168,76,.08))", display:"flex", alignItems:"center", justifyContent:"center", fontSize:"3.5rem" }}>🎵</div>
       }
     </div>
   );
 }
-
-// ── ORGANIZERS BAR ────────────────────────────────────────────────────────────
 function OrganizersBar({ organizers }) {
   if (!organizers?.length) return null;
   return (
     <Reveal>
-      <div style={{ display:"flex", alignItems:"center", justifyContent:"center", flexWrap:"wrap", gap:"3rem", padding:"3rem clamp(1rem,5vw,5rem)", borderBottom:"1px solid rgba(201,168,76,.1)" }}>
+      <div style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        flexWrap: "wrap",
+        gap: "2rem",
+        padding: "4rem clamp(1rem,5vw,5rem)",
+        borderBottom: "1px solid rgba(201,168,76,.1)"
+      }}>
         {organizers.map((org, i) => (
           <div key={i} style={{ display:"flex", alignItems:"center" }}>
-            {i > 0 && (
-              <div className="org-divider" style={{ width:1, height:72, background:"linear-gradient(180deg,transparent,rgba(201,168,76,.35),transparent)", margin:"0 2rem" }}/>
-            )}
-            <div style={{ display:"flex", flexDirection:"column", alignItems:"center", gap:12 }}>
 
-              {/* Logo — bigger, with glow */}
+            {/* Divider — hidden on mobile via small screens */}
+            {i > 0 && (
+              <div className="org-divider" style={{
+                width: 1,
+                height: 110,
+                background: "linear-gradient(180deg,transparent,rgba(201,168,76,.35),transparent)",
+                margin: "0 clamp(1rem,3vw,3rem)",
+                flexShrink: 0,
+              }}/>
+            )}
+
+            {/* Org card — fluid width on mobile */}
+            <div style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: 16,
+              width: "clamp(100px,20vw,180px)",
+            }}>
+
+              {/* Logo */}
               <div style={{
-                width: 84,
-                height: 84,
+                width: i === 1 ? "clamp(110px,22vw,190px)" : "clamp(90px,18vw,150px)",
+                height: i === 1 ? "clamp(110px,22vw,190px)" : "clamp(90px,18vw,150px)",
                 borderRadius: "50%",
-                border: "1.5px solid rgba(201,168,76,.55)",
+                border: "2px solid rgba(201,168,76,.55)",
                 background: "radial-gradient(circle at 38% 35%,rgba(201,168,76,.15),rgba(201,168,76,.03))",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
                 overflow: "hidden",
-                boxShadow: "0 0 28px rgba(201,168,76,.18), 0 0 8px rgba(201,168,76,.1)",
+                boxShadow: "0 0 36px rgba(201,168,76,.22), 0 0 12px rgba(201,168,76,.12)",
+                flexShrink: 0,
               }}>
                 {org.logoUrl
                   ? <img src={org.logoUrl} alt={org.name} style={{ width:"100%", height:"100%", objectFit:"cover" }}/>
-                  : <span style={{ fontFamily:"'Cinzel',serif", fontSize:"11px", fontWeight:700, color:"var(--gold)", textAlign:"center", lineHeight:1.35, padding:"0 6px" }}>
+                  : <span style={{ fontFamily:"'Cinzel',serif", fontSize:"clamp(12px,3vw,20px)", fontWeight:700, color:"var(--gold)", textAlign:"center", lineHeight:1.35, padding:"0 8px" }}>
                       {org.short || org.name.split(" ").map(w=>w[0]).join("")}
                     </span>
                 }
               </div>
 
-              {/* Name — readable */}
+              {/* Name */}
               <span style={{
                 fontFamily: "'Cinzel',serif",
-                fontSize: "8.5px",
-                letterSpacing: "2.5px",
+                fontSize: "clamp(9px,2vw,15px)",
+                letterSpacing: "2px",
                 color: "var(--gold-light)",
-                opacity: 1,
                 textAlign: "center",
                 textTransform: "uppercase",
                 lineHeight: 1.8,
-                maxWidth: 110,
+                maxWidth: "clamp(80px,18vw,160px)",
                 textShadow: "0 0 12px rgba(201,168,76,.4)",
               }}>
                 {org.name}
@@ -256,7 +277,7 @@ function LataLifeSection() {
     <section ref={ref} id="legacy" style={{ padding:"5rem clamp(1rem,5vw,5rem)", maxWidth:1200, margin:"0 auto", opacity:vis?1:0, transform:vis?"none":"translateY(48px)", transition:"opacity .9s ease,transform .9s ease" }}>
       <SectionLabel>Her Journey</SectionLabel>
       <SectionTitle>The Voice That <GoldEm>Defined a Nation</GoldEm></SectionTitle>
-      <p style={{ color:"var(--text-dim)", maxWidth:620, marginBottom:"4rem", fontSize:"clamp(0.95rem,2vw,1.05rem)", lineHeight:1.9 }}>
+      <p style={{ color:"var(--text-dim)", maxWidth:680, marginBottom:"4rem", fontSize:"clamp(1.1rem,2vw,1.25rem)", lineHeight:2 }}>
         Eight decades. Thirty-six languages. Thirty thousand songs. One voice that became the soundtrack of India's joys, sorrows, and everything in between.
       </p>
       <div style={{ display:"flex", flexDirection:"column", gap:"5rem" }}>
@@ -273,25 +294,25 @@ function LifePhaseRow({ phase, flip, index }) {
   return (
     <div ref={ref} style={{
       display:"grid",
-      gridTemplateColumns:"repeat(auto-fit,minmax(min(260px,100%),1fr))",
+      gridTemplateColumns:"repeat(auto-fit,minmax(min(280px,100%),1fr))",
       gap:"2.5rem",
       alignItems:"center",
       opacity:vis?1:0,
       transform:vis?"translateY(0)":"translateY(40px)",
       transition:`opacity .9s ${index*.18}s ease,transform .9s ${index*.18}s ease`,
     }}>
-      {/* Image — always order:1 on mobile via className, flip only on desktop */}
+      {/* Image */}
       <div className="life-img" style={{ order: flip ? 2 : 1, display:"flex", justifyContent:"center" }}>
-        <PortraitCircle src={phase.img} alt={phase.era} size="min(200px,50vw)"/>
+        <PortraitCircle src={phase.img} alt={phase.era} size="min(260px,60vw)"/>
       </div>
-      {/* Text — always order:2 on mobile */}
+      {/* Text */}
       <div className="life-text" style={{ order: flip ? 1 : 2 }}>
-        <div style={{ fontFamily:"'Cinzel',serif", fontSize:"0.58rem", letterSpacing:"0.5em", color:"var(--gold)", opacity:.65, textTransform:"uppercase", marginBottom:"0.5rem" }}>{phase.years}</div>
-        <h3 style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"clamp(1.4rem,3vw,2.4rem)", fontWeight:300, lineHeight:1.15, marginBottom:"1.25rem" }}>
+        <div style={{ fontFamily:"'Cinzel',serif", fontSize:"0.95rem", letterSpacing:"0.5em", color:"var(--gold)", opacity:.75, textTransform:"uppercase", marginBottom:"0.75rem" }}>{phase.years}</div>
+        <h3 style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"clamp(1.8rem,3vw,2.8rem)", fontWeight:300, lineHeight:1.15, marginBottom:"1.25rem" }}>
           <GoldEm>{phase.era}</GoldEm>
         </h3>
-        <div style={{ width:40, height:1, background:"var(--gold)", opacity:.4, marginBottom:"1.5rem" }}/>
-        <p style={{ color:"var(--text-dim)", lineHeight:1.9, fontSize:"clamp(0.9rem,1.8vw,1rem)" }}>{phase.summary}</p>
+        <div style={{ width:50, height:1, background:"var(--gold)", opacity:.4, marginBottom:"1.5rem" }}/>
+        <p style={{ color:"var(--text-dim)", lineHeight:2, fontSize:"clamp(1.05rem,1.8vw,1.2rem)" }}>{phase.summary}</p>
       </div>
     </div>
   );
@@ -338,7 +359,6 @@ function SongCard({ song, index }) {
 // ── PERFORMERS ────────────────────────────────────────────────────────────────
 function PerformersSection({ performers }) {
   const [ref, vis] = useReveal();
-  
   const visible = performers?.filter(p => p.performer === true);
   if (!visible?.length) return null;
 
@@ -347,16 +367,16 @@ function PerformersSection({ performers }) {
       <SectionLabel>The Artists</SectionLabel>
       <SectionTitle>Honouring <GoldEm>the Legend</GoldEm></SectionTitle>
       <div style={{
-        display:"flex",
-        flexWrap:"wrap",
-        justifyContent:"center",
-        gap:"1.5rem",
+        display: "flex",
+        flexDirection: "column",
+        gap: "1rem",
       }}>
         {visible.map((p, i) => <PerformerCard key={i} p={p}/>)}
       </div>
     </section>
   );
 }
+
 function PerformerCard({ p }) {
   const [hov, setHov] = useState(false);
   const hasImg = p.imgUrl && p.imgUrl.trim() !== "";
@@ -365,12 +385,11 @@ function PerformerCard({ p }) {
     <div
       onMouseEnter={() => setHov(true)} onMouseLeave={() => setHov(false)}
       style={{
-        width: "min(320px,92vw)",
-        flexShrink: 0,
+        width: "100%",
         border: `1px solid ${hov ? "rgba(201,168,76,.45)" : "rgba(201,168,76,.14)"}`,
         background: hov ? "rgba(201,168,76,.05)" : "rgba(201,168,76,.02)",
-        transform: hov ? "translateY(-6px)" : "none",
-        boxShadow: hov ? "0 24px 70px rgba(201,168,76,.12)" : "none",
+        transform: hov ? "translateY(-3px)" : "none",
+        boxShadow: hov ? "0 12px 40px rgba(201,168,76,.1)" : "none",
         transition: "all .4s ease",
         cursor: p.url ? "pointer" : "default",
         position: "relative",
@@ -378,63 +397,59 @@ function PerformerCard({ p }) {
       }}
     >
       {/* Corner accents */}
-      <div style={{ position:"absolute", top:8, left:8, width:12, height:12, borderTop:"1px solid rgba(201,168,76,.4)", borderLeft:"1px solid rgba(201,168,76,.4)", zIndex:2 }}/>
-      <div style={{ position:"absolute", top:8, right:8, width:12, height:12, borderTop:"1px solid rgba(201,168,76,.4)", borderRight:"1px solid rgba(201,168,76,.4)", zIndex:2 }}/>
-      <div style={{ position:"absolute", bottom:8, left:8, width:12, height:12, borderBottom:"1px solid rgba(201,168,76,.4)", borderLeft:"1px solid rgba(201,168,76,.4)", zIndex:2 }}/>
-      <div style={{ position:"absolute", bottom:8, right:8, width:12, height:12, borderBottom:"1px solid rgba(201,168,76,.4)", borderRight:"1px solid rgba(201,168,76,.4)", zIndex:2 }}/>
+      <div style={{ position:"absolute", top:6, left:6, width:10, height:10, borderTop:"1px solid rgba(201,168,76,.4)", borderLeft:"1px solid rgba(201,168,76,.4)", zIndex:2 }}/>
+      <div style={{ position:"absolute", top:6, right:6, width:10, height:10, borderTop:"1px solid rgba(201,168,76,.4)", borderRight:"1px solid rgba(201,168,76,.4)", zIndex:2 }}/>
+      <div style={{ position:"absolute", bottom:6, left:6, width:10, height:10, borderBottom:"1px solid rgba(201,168,76,.4)", borderLeft:"1px solid rgba(201,168,76,.4)", zIndex:2 }}/>
+      <div style={{ position:"absolute", bottom:6, right:6, width:10, height:10, borderBottom:"1px solid rgba(201,168,76,.4)", borderRight:"1px solid rgba(201,168,76,.4)", zIndex:2 }}/>
 
       {/* Top accent line */}
-      <div style={{ height:2, background:`linear-gradient(90deg,transparent,${hov?"rgba(201,168,76,.7)":"rgba(201,168,76,.25)"},transparent)`, transition:"background .4s" }}/>
+      <div style={{ height:1, background:`linear-gradient(90deg,transparent,${hov?"rgba(201,168,76,.7)":"rgba(201,168,76,.25)"},transparent)`, transition:"background .4s" }}/>
 
-      <div style={{ padding:"2rem 1.75rem 1.75rem", display:"flex", flexDirection:"column", alignItems:"center", textAlign:"center" }}>
+      {/* Row layout — photo left, text right, always */}
+      <div style={{ padding:"1rem 1.25rem", display:"flex", flexDirection:"row", alignItems:"center", gap:"1.25rem" }}>
 
         {/* Avatar */}
-        <div style={{ position:"relative", marginBottom:"1.5rem" }}>
-          {/* Outer glow ring */}
-          <div style={{ position:"absolute", inset:-6, borderRadius:"50%", background:`radial-gradient(circle,${hov?"rgba(201,168,76,.2)":"rgba(201,168,76,.08)"} 0%,transparent 70%)`, transition:"background .4s" }}/>
-          <div style={{ position:"absolute", inset:-3, borderRadius:"50%", border:`1px solid ${hov?"rgba(201,168,76,.5)":"rgba(201,168,76,.2)"}`, transition:"border-color .4s" }}/>
-
+        <div style={{ position:"relative", flexShrink:0 }}>
+          <div style={{ position:"absolute", inset:-5, borderRadius:"50%", background:`radial-gradient(circle,${hov?"rgba(201,168,76,.2)":"rgba(201,168,76,.08)"} 0%,transparent 70%)`, transition:"background .4s" }}/>
+          <div style={{ position:"absolute", inset:-2, borderRadius:"50%", border:`1px solid ${hov?"rgba(201,168,76,.5)":"rgba(201,168,76,.2)"}`, transition:"border-color .4s" }}/>
           {hasImg
-            ? <img src={p.imgUrl} alt={p.name} style={{ width:100, height:100, borderRadius:"50%", objectFit:"cover", objectPosition:"center top", border:"2px solid rgba(201,168,76,.45)", display:"block", position:"relative", zIndex:1 }}/>
-            : <div style={{ width:100, height:100, borderRadius:"50%", background:"linear-gradient(135deg,rgba(201,168,76,.15),rgba(122,28,46,.15))", border:"2px solid rgba(201,168,76,.3)", display:"flex", alignItems:"center", justifyContent:"center", fontSize:"2.2rem", position:"relative", zIndex:1 }}>
+            ? <img src={p.imgUrl} alt={p.name} style={{ width:64, height:64, borderRadius:"50%", objectFit:"cover", objectPosition:"center top", border:"2px solid rgba(201,168,76,.45)", display:"block", position:"relative", zIndex:1 }}/>
+            : <div style={{ width:64, height:64, borderRadius:"50%", background:"linear-gradient(135deg,rgba(201,168,76,.15),rgba(122,28,46,.15))", border:"2px solid rgba(201,168,76,.3)", display:"flex", alignItems:"center", justifyContent:"center", fontSize:"1.5rem", position:"relative", zIndex:1 }}>
                 {p.emoji || "🎵"}
               </div>
           }
         </div>
 
-        {/* Name */}
-        <div style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"clamp(1.15rem,2.5vw,1.4rem)", fontWeight:600, color:"var(--ivory)", letterSpacing:"0.04em", lineHeight:1.2, marginBottom:"0.4rem" }}>
-          {p.name}
-        </div>
+        {/* Text content */}
+        <div style={{ flex:1, minWidth:0 }}>
 
-        {/* Role pill */}
-        <div style={{ display:"inline-flex", alignItems:"center", gap:"0.4rem", background:"rgba(201,168,76,.08)", border:"1px solid rgba(201,168,76,.2)", borderRadius:100, padding:"0.3rem 0.85rem", marginBottom:"1.25rem" }}>
-          <div style={{ width:4, height:4, borderRadius:"50%", background:"var(--gold)", opacity:.8 }}/>
-          <span style={{ fontFamily:"'Cinzel',serif", fontSize:"0.48rem", letterSpacing:"0.22em", color:"var(--gold)", textTransform:"uppercase" }}>
-            {p.role}
-          </span>
-        </div>
-
-        {/* Divider */}
-        <div style={{ display:"flex", alignItems:"center", gap:"0.5rem", width:"100%", marginBottom:"1.25rem" }}>
-          <div style={{ flex:1, height:1, background:"linear-gradient(to right,transparent,rgba(201,168,76,.2))" }}/>
-          <div style={{ width:4, height:4, background:"var(--gold)", transform:"rotate(45deg)", opacity:.4 }}/>
-          <div style={{ flex:1, height:1, background:"linear-gradient(to left,transparent,rgba(201,168,76,.2))" }}/>
-        </div>
-
-        {/* Desc */}
-        {p.desc && (
-          <div style={{ fontFamily:"'Cormorant Garamond',serif", fontStyle:"italic", fontSize:"clamp(0.88rem,1.8vw,0.95rem)", color:"var(--text-dim)", lineHeight:1.75, letterSpacing:"0.02em" }}>
-            {p.desc}
+          {/* Name + Role on same line */}
+          <div style={{ display:"flex", alignItems:"center", flexWrap:"wrap", gap:"0.6rem", marginBottom:"0.4rem" }}>
+            <div style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"clamp(1rem,2vw,1.25rem)", fontWeight:600, color:"var(--ivory)", letterSpacing:"0.04em", lineHeight:1.2 }}>
+              {p.name}
+            </div>
+            <div style={{ display:"inline-flex", alignItems:"center", gap:"0.3rem", background:"rgba(201,168,76,.08)", border:"1px solid rgba(201,168,76,.2)", borderRadius:100, padding:"0.2rem 0.65rem" }}>
+              <div style={{ width:3, height:3, borderRadius:"50%", background:"var(--gold)", opacity:.8 }}/>
+              <span style={{ fontFamily:"'Cinzel',serif", fontSize:"0.55rem", letterSpacing:"0.18em", color:"var(--gold)", textTransform:"uppercase" }}>
+                {p.role}
+              </span>
+            </div>
           </div>
-        )}
 
-        {/* Link hint */}
-        {p.url && (
-          <div style={{ marginTop:"1.25rem", fontFamily:"'Cinzel',serif", fontSize:"0.46rem", letterSpacing:"0.22em", color: hov ? "var(--gold)" : "var(--text-dim)", textTransform:"uppercase", transition:"color .3s" }}>
-            View Profile →
-          </div>
-        )}
+          {/* Desc */}
+          {p.desc && (
+            <div style={{ fontFamily:"'Cormorant Garamond',serif", fontStyle:"italic", fontSize:"clamp(0.82rem,1.5vw,0.92rem)", color:"var(--text-dim)", lineHeight:1.65, letterSpacing:"0.02em" }}>
+              {p.desc}
+            </div>
+          )}
+
+          {/* Link hint */}
+          {p.url && (
+            <div style={{ marginTop:"0.5rem", fontFamily:"'Cinzel',serif", fontSize:"0.55rem", letterSpacing:"0.2em", color: hov ? "var(--gold)" : "var(--text-dim)", textTransform:"uppercase", transition:"color .3s" }}>
+              View Profile →
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
@@ -458,17 +473,17 @@ function VenueSection({ venue }) {
       <SectionLabel>The Stage</SectionLabel>
       <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fit,minmax(min(280px,100%),1fr))", gap:"3rem", alignItems:"center" }}>
         <div>
-          <h3 style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"clamp(1.5rem,3vw,2.5rem)", fontWeight:400, marginBottom:8 }}>{venue.name}</h3>
-          {venue.address && <div style={{ fontFamily:"'Cinzel',serif", fontSize:"0.6rem", letterSpacing:"0.2em", color:"var(--gold)", textTransform:"uppercase", marginBottom:"1.25rem", lineHeight:1.8 }}>{venue.address}</div>}
-          {venue.city    && <div style={{ fontFamily:"'Cinzel',serif", fontSize:"0.6rem", letterSpacing:"0.2em", color:"var(--gold)", opacity:.6, textTransform:"uppercase", marginBottom:"1rem" }}>{venue.city}</div>}
-          {venue.description && <p style={{ color:"var(--text-dim)", lineHeight:1.8, fontSize:"clamp(0.9rem,1.8vw,1rem)" }}>{venue.description}</p>}
+          <h3 style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"clamp(2rem,3vw,3rem)", fontWeight:400, marginBottom:12 }}>{venue.name}</h3>
+          {venue.address && <div style={{ fontFamily:"'Cinzel',serif", fontSize:"0.95rem", letterSpacing:"0.2em", color:"var(--gold)", textTransform:"uppercase", marginBottom:"1.25rem", lineHeight:1.8 }}>{venue.address}</div>}
+          {venue.city    && <div style={{ fontFamily:"'Cinzel',serif", fontSize:"0.9rem", letterSpacing:"0.2em", color:"var(--gold)", opacity:.75, textTransform:"uppercase", marginBottom:"1rem" }}>{venue.city}</div>}
+          {venue.description && <p style={{ color:"var(--text-dim)", lineHeight:2, fontSize:"clamp(1.05rem,1.8vw,1.2rem)" }}>{venue.description}</p>}
           {venue.mapsUrl && (
             <a href={venue.mapsUrl} target="_blank" rel="noreferrer"
-              style={{ display:"inline-flex", alignItems:"center", gap:"0.5rem", marginTop:"1.5rem", fontFamily:"'Cinzel',serif", fontSize:"0.6rem", letterSpacing:"0.2em", color:"var(--gold)", textDecoration:"none", borderBottom:"1px solid rgba(201,168,76,.3)", paddingBottom:2, textTransform:"uppercase" }}
+              style={{ display:"inline-flex", alignItems:"center", gap:"0.5rem", marginTop:"1.5rem", fontFamily:"'Cinzel',serif", fontSize:"0.95rem", letterSpacing:"0.2em", color:"var(--gold)", textDecoration:"none", borderBottom:"1px solid rgba(201,168,76,.3)", paddingBottom:2, textTransform:"uppercase" }}
             >📍 Open in Maps</a>
           )}
         </div>
-        <div style={{ aspectRatio:"4/3", background:"linear-gradient(135deg,rgba(26,74,74,.35),rgba(13,13,34,.85))", border:"1px solid rgba(201,168,76,.15)", display:"flex", alignItems:"center", justifyContent:"center", fontSize:"5rem", position:"relative" }}>
+        <div style={{ aspectRatio:"4/3", background:"linear-gradient(135deg,rgba(26,74,74,.35),rgba(13,13,34,.85))", border:"1px solid rgba(201,168,76,.15)", display:"flex", alignItems:"center", justifyContent:"center", fontSize:"7rem", position:"relative" }}>
           <div style={{ position:"absolute", inset:20, border:"1px solid rgba(201,168,76,.07)" }}/>🏛
         </div>
       </div>
@@ -1121,142 +1136,175 @@ function CauseOrgCard({ org }) {
   );
 }
 // ── GUEST ARTIST ──────────────────────────────────────────────────────────────
-function GuestArtistSection({ performers }) {
-  const [ref, vis] = useReveal();
-
-  const guests = performers?.filter(p => p.special === true);
-  if (!guests?.length) return null;
-
-  return (
-    <section
-      ref={ref}
-      id="guest-artist"
-      style={{
-        padding: "5rem clamp(1rem,5vw,5rem)",
-        maxWidth: 1200,
-        margin: "0 auto",
-        opacity: vis ? 1 : 0,
-        transform: vis ? "none" : "translateY(48px)",
-        transition: "opacity .9s ease, transform .9s ease",
-      }}
-    >
-      <SectionLabel>Special Appearance</SectionLabel>
-      <SectionTitle>An Evening <GoldEm>Made Special</GoldEm></SectionTitle>
-
-      <div style={{ display: "flex", flexDirection: "column", gap: "3rem" }}>
-        {guests.map((guest, i) => (
-          <GuestCard key={i} guest={guest} flip={i % 2 !== 0} />
-        ))}
-      </div>
-    </section>
-  );
-}
-
 function GuestCard({ guest, flip }) {
-  // imgUrl2 takes priority, falls back to imgUrl
-  const photo = (guest.imgUrl2 && guest.imgUrl2.trim() !== "")
-    ? guest.imgUrl2
-    : guest.imgUrl;
+  const [photoIndex, setPhotoIndex] = useState(0);
+  const photos = [
+    guest.imgUrl2 && guest.imgUrl2.trim() !== "" ? guest.imgUrl2 : null,
+    guest.imgUrl && guest.imgUrl.trim() !== "" ? guest.imgUrl : null,
+  ].filter(Boolean);
+
+  // Touch swipe support
+  const touchStartX = useRef(null);
+  const handleTouchStart = (e) => { touchStartX.current = e.touches[0].clientX; };
+  const handleTouchEnd = (e) => {
+    if (touchStartX.current === null) return;
+    const diff = touchStartX.current - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 40) {
+      setPhotoIndex(prev =>
+        diff > 0
+          ? Math.min(prev + 1, photos.length - 1)
+          : Math.max(prev - 1, 0)
+      );
+    }
+    touchStartX.current = null;
+  };
 
   return (
     <div style={{
-      display: "grid",
-      gridTemplateColumns: "repeat(auto-fit, minmax(min(280px,100%), 1fr))",
-      gap: "3rem",
-      alignItems: "center",
-      border: "1px solid rgba(201,168,76,.18)",
-      background: "linear-gradient(135deg,rgba(201,168,76,.04),rgba(201,168,76,.01),transparent)",
-      padding: "3rem clamp(1.5rem,4vw,3.5rem)",
+      minHeight: "100vh",
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center",
+      padding: "5rem clamp(1.5rem,5vw,5rem)",
+      borderBottom: "1px solid rgba(201,168,76,.12)",
       position: "relative",
       overflow: "hidden",
     }}>
 
-      {/* Corner accents */}
-      <div style={{ position:"absolute", top:12, left:12, width:16, height:16, borderTop:"1px solid rgba(201,168,76,.45)", borderLeft:"1px solid rgba(201,168,76,.45)" }}/>
-      <div style={{ position:"absolute", top:12, right:12, width:16, height:16, borderTop:"1px solid rgba(201,168,76,.45)", borderRight:"1px solid rgba(201,168,76,.45)" }}/>
-      <div style={{ position:"absolute", bottom:12, left:12, width:16, height:16, borderBottom:"1px solid rgba(201,168,76,.45)", borderLeft:"1px solid rgba(201,168,76,.45)" }}/>
-      <div style={{ position:"absolute", bottom:12, right:12, width:16, height:16, borderBottom:"1px solid rgba(201,168,76,.45)", borderRight:"1px solid rgba(201,168,76,.45)" }}/>
-
       {/* Background glow */}
-      <div style={{ position:"absolute", top:"50%", left:"50%", transform:"translate(-50%,-50%)", width:"60%", height:"60%", background:"radial-gradient(circle,rgba(201,168,76,.05) 0%,transparent 70%)", pointerEvents:"none" }}/>
+      <div style={{ position:"absolute", top:"50%", left:"50%", transform:"translate(-50%,-50%)", width:"70%", height:"70%", background:"radial-gradient(circle,rgba(201,168,76,.05) 0%,transparent 70%)", pointerEvents:"none" }}/>
 
-      {/* Portrait — flips side on alternating cards */}
-      <div className="life-img" style={{ order: flip ? 2 : 1, display:"flex", justifyContent:"center" }}>
-        <PortraitCircle
-          src={photo}
-          alt={guest.name}
-          size="min(240px,55vw)"
-          glowColor="rgba(201,168,76,.22)"
-        />
-      </div>
+      <div style={{
+        display: "grid",
+        gridTemplateColumns: "repeat(auto-fit,minmax(min(300px,100%),1fr))",
+        gap: "4rem",
+        alignItems: "center",
+        maxWidth: 1100,
+        margin: "0 auto",
+        width: "100%",
+      }}>
 
-      {/* Text */}
-      <div className="life-text" style={{ order: flip ? 1 : 2 }}>
+        {/* Carousel */}
+        <div
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
+          style={{ display:"flex", flexDirection:"column", alignItems:"center", gap:"1.5rem" }}
+        >
+          <div style={{ position:"relative", width:"min(340px,80vw)", height:"min(340px,80vw)" }}>
+            {photos.map((src, i) => (
+              <div key={i} style={{
+                position: "absolute", inset: 0,
+                opacity: i === photoIndex ? 1 : 0,
+                transition: "opacity 0.6s ease",
+              }}>
+                <PortraitCircle
+                  src={src}
+                  alt={guest.name}
+                  size="min(340px,80vw)"
+                  glowColor="rgba(201,168,76,.28)"
+                />
+              </div>
+            ))}
+          </div>
 
-        {/* Badge — uses guest.badge if present, else default */}
-        <div style={{
-          display: "inline-flex",
-          alignItems: "center",
-          gap: "0.5rem",
-          background: "rgba(201,168,76,.08)",
-          border: "1px solid rgba(201,168,76,.28)",
-          borderRadius: 100,
-          padding: "0.35rem 1rem",
-          marginBottom: "1.5rem",
-        }}>
-          <span style={{ fontSize: "0.75rem" }}>📺</span>
-          <span style={{
-            fontFamily: "'Cinzel',serif",
-            fontSize: "0.5rem",
-            letterSpacing: "0.2em",
-            color: "var(--gold)",
-            textTransform: "uppercase",
+          {/* Dot indicators */}
+          {photos.length > 1 && (
+            <div style={{ display:"flex", gap:"0.6rem", alignItems:"center" }}>
+              {photos.map((_, i) => (
+                <div key={i} style={{
+                  width: i === photoIndex ? 24 : 8,
+                  height: 8,
+                  borderRadius: 100,
+                  background: i === photoIndex ? "var(--gold)" : "rgba(201,168,76,.3)",
+                  transition: "all 0.4s ease",
+                }}/>
+              ))}
+            </div>
+          )}
+
+          {/* Swipe hint */}
+          <div style={{ fontFamily:"'Cinzel',serif", fontSize:"0.7rem", letterSpacing:"0.2em", color:"var(--gold)", opacity:0.45, textTransform:"uppercase" }}>
+            ← swipe to see more →
+          </div>
+        </div>
+
+        {/* Full Profile Text */}
+        <div>
+
+          {/* Badge */}
+          <div style={{
+            display: "inline-flex", alignItems: "center", gap: "0.5rem",
+            background: "rgba(201,168,76,.08)", border: "1px solid rgba(201,168,76,.28)",
+            borderRadius: 100, padding: "0.5rem 1.25rem", marginBottom: "2rem",
           }}>
-            {guest.badge || "As Seen on Star Pravah"}
-          </span>
+            <span style={{ fontSize:"1rem" }}>📺</span>
+            <span style={{ fontFamily:"'Cinzel',serif", fontSize:"0.8rem", letterSpacing:"0.2em", color:"var(--gold)", textTransform:"uppercase" }}>
+              {guest.badge || "Special Guest"}
+            </span>
+          </div>
+
+          {/* Name */}
+          <h3 style={{
+            fontFamily: "'Cormorant Garamond',serif",
+            fontSize: "clamp(2.4rem,5vw,3.8rem)",
+            fontWeight: 300, lineHeight: 1.1,
+            marginBottom: "0.75rem",
+            color: "var(--ivory)",
+          }}>
+            {guest.name}
+          </h3>
+
+          {/* Role */}
+          <div style={{
+            fontFamily: "'Cinzel',serif",
+            fontSize: "0.85rem", letterSpacing: "0.25em",
+            color: "var(--gold)", textTransform: "uppercase",
+            marginBottom: "2rem", opacity: 0.85,
+          }}>
+            {guest.role}
+          </div>
+
+          {/* Gold rule */}
+          <div style={{ width:60, height:1, background:"var(--gold)", opacity:0.4, marginBottom:"2rem" }}/>
+
+          {/* Desc */}
+          <p style={{
+            fontFamily: "'Cormorant Garamond',serif",
+            fontStyle: "italic",
+            fontSize: "clamp(1.15rem,2vw,1.35rem)",
+            color: "var(--text-dim)",
+            lineHeight: 2,
+            maxWidth: 520,
+          }}>
+            {guest.desc}
+          </p>
+
         </div>
-
-        {/* Name */}
-        <h3 style={{
-          fontFamily: "'Cormorant Garamond',serif",
-          fontSize: "clamp(1.8rem,4vw,3rem)",
-          fontWeight: 300,
-          lineHeight: 1.1,
-          marginBottom: "0.5rem",
-          color: "var(--ivory)",
-        }}>
-          {guest.name}
-        </h3>
-
-        {/* Role */}
-        <div style={{
-          fontFamily: "'Cinzel',serif",
-          fontSize: "0.54rem",
-          letterSpacing: "0.25em",
-          color: "var(--gold)",
-          textTransform: "uppercase",
-          marginBottom: "1.5rem",
-          opacity: 0.8,
-        }}>
-          {guest.role}
-        </div>
-
-        {/* Gold rule */}
-        <div style={{ width: 48, height: 1, background: "var(--gold)", opacity: 0.4, marginBottom: "1.5rem" }}/>
-
-        {/* Desc */}
-        <p style={{
-          fontFamily: "'Cormorant Garamond',serif",
-          fontStyle: "italic",
-          fontSize: "clamp(1rem,2vw,1.15rem)",
-          color: "var(--text-dim)",
-          lineHeight: 1.9,
-          maxWidth: 480,
-        }}>
-          {guest.desc}
-        </p>
       </div>
     </div>
+  );
+}
+
+function GuestArtistSection({ performers }) {
+  const [ref, vis] = useReveal();
+  const guests = performers?.filter(p => p.special === true);
+  if (!guests?.length) return null;
+
+  return (
+    <section ref={ref} id="guest-artist" style={{
+      opacity: vis ? 1 : 0,
+      transform: vis ? "none" : "translateY(48px)",
+      transition: "opacity .9s ease, transform .9s ease",
+    }}>
+      <div style={{ padding:"4rem clamp(1rem,5vw,5rem)", maxWidth:1200, margin:"0 auto" }}>
+        <SectionLabel>Special Appearance</SectionLabel>
+        <SectionTitle>An Evening <GoldEm>Made Special</GoldEm></SectionTitle>
+      </div>
+
+      {guests.map((guest, i) => (
+        <GuestCard key={i} guest={guest} flip={i % 2 !== 0} />
+      ))}
+    </section>
   );
 }
 // ══════════════════════════════════════════════════════════════════════════════
