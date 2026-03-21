@@ -363,15 +363,22 @@ function PerformersSection({ performers }) {
   if (!visible?.length) return null;
 
   return (
-    <section ref={ref} id="performers" style={{ padding:"5rem clamp(1rem,5vw,5rem)", maxWidth:1200, margin:"0 auto", opacity:vis?1:0, transform:vis?"none":"translateY(48px)", transition:"opacity .9s ease,transform .9s ease" }}>
+    <section
+      ref={ref}
+      id="performers"
+      style={{
+        padding: "3rem clamp(1rem,5vw,5rem)",
+        maxWidth: 1200,
+        margin: "0 auto",
+        opacity: vis ? 1 : 0,
+        transform: vis ? "none" : "translateY(48px)",
+        transition: "opacity .9s ease,transform .9s ease",
+      }}
+    >
       <SectionLabel>The Artists</SectionLabel>
       <SectionTitle>Honouring <GoldEm>the Legend</GoldEm></SectionTitle>
-      <div style={{
-        display: "flex",
-        flexDirection: "column",
-        gap: "1rem",
-      }}>
-        {visible.map((p, i) => <PerformerCard key={i} p={p}/>)}
+      <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+        {visible.map((p, i) => <PerformerCard key={i} p={p} />)}
       </div>
     </section>
   );
@@ -383,80 +390,140 @@ function PerformerCard({ p }) {
 
   const card = (
     <div
-      onMouseEnter={() => setHov(true)} onMouseLeave={() => setHov(false)}
+      onMouseEnter={() => setHov(true)}
+      onMouseLeave={() => setHov(false)}
       style={{
         width: "100%",
         border: `1px solid ${hov ? "rgba(201,168,76,.45)" : "rgba(201,168,76,.14)"}`,
         background: hov ? "rgba(201,168,76,.05)" : "rgba(201,168,76,.02)",
-        transform: hov ? "translateY(-3px)" : "none",
-        boxShadow: hov ? "0 12px 40px rgba(201,168,76,.1)" : "none",
-        transition: "all .4s ease",
+        transform: hov ? "translateY(-2px)" : "none",
+        boxShadow: hov ? "0 8px 24px rgba(201,168,76,.08)" : "none",
+        transition: "all .3s ease",
         cursor: p.url ? "pointer" : "default",
         position: "relative",
         overflow: "hidden",
       }}
     >
-      {/* Corner accents */}
-      <div style={{ position:"absolute", top:6, left:6, width:10, height:10, borderTop:"1px solid rgba(201,168,76,.4)", borderLeft:"1px solid rgba(201,168,76,.4)", zIndex:2 }}/>
-      <div style={{ position:"absolute", top:6, right:6, width:10, height:10, borderTop:"1px solid rgba(201,168,76,.4)", borderRight:"1px solid rgba(201,168,76,.4)", zIndex:2 }}/>
-      <div style={{ position:"absolute", bottom:6, left:6, width:10, height:10, borderBottom:"1px solid rgba(201,168,76,.4)", borderLeft:"1px solid rgba(201,168,76,.4)", zIndex:2 }}/>
-      <div style={{ position:"absolute", bottom:6, right:6, width:10, height:10, borderBottom:"1px solid rgba(201,168,76,.4)", borderRight:"1px solid rgba(201,168,76,.4)", zIndex:2 }}/>
-
       {/* Top accent line */}
-      <div style={{ height:1, background:`linear-gradient(90deg,transparent,${hov?"rgba(201,168,76,.7)":"rgba(201,168,76,.25)"},transparent)`, transition:"background .4s" }}/>
+      <div style={{
+        height: 1,
+        background: `linear-gradient(90deg,transparent,${hov ? "rgba(201,168,76,.7)" : "rgba(201,168,76,.25)"},transparent)`,
+        transition: "background .3s",
+      }} />
 
-      {/* Row layout — photo left, text right, always */}
-      <div style={{ padding:"1rem 1.25rem", display:"flex", flexDirection:"row", alignItems:"center", gap:"1.25rem" }}>
+      <div style={{
+        padding: "0.6rem 1rem",
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "center",
+        gap: "0.85rem",
+      }}>
 
         {/* Avatar */}
-        <div style={{ position:"relative", flexShrink:0 }}>
-          <div style={{ position:"absolute", inset:-5, borderRadius:"50%", background:`radial-gradient(circle,${hov?"rgba(201,168,76,.2)":"rgba(201,168,76,.08)"} 0%,transparent 70%)`, transition:"background .4s" }}/>
-          <div style={{ position:"absolute", inset:-2, borderRadius:"50%", border:`1px solid ${hov?"rgba(201,168,76,.5)":"rgba(201,168,76,.2)"}`, transition:"border-color .4s" }}/>
+        <div style={{ flexShrink: 0 }}>
           {hasImg
-            ? <img src={p.imgUrl} alt={p.name} style={{ width:64, height:64, borderRadius:"50%", objectFit:"cover", objectPosition:"center top", border:"2px solid rgba(201,168,76,.45)", display:"block", position:"relative", zIndex:1 }}/>
-            : <div style={{ width:64, height:64, borderRadius:"50%", background:"linear-gradient(135deg,rgba(201,168,76,.15),rgba(122,28,46,.15))", border:"2px solid rgba(201,168,76,.3)", display:"flex", alignItems:"center", justifyContent:"center", fontSize:"1.5rem", position:"relative", zIndex:1 }}>
+            ? <img
+                src={p.imgUrl}
+                alt={p.name}
+                style={{
+                  width: 40,
+                  height: 40,
+                  borderRadius: "50%",
+                  objectFit: "cover",
+                  objectPosition: "center top",
+                  border: "1.5px solid rgba(201,168,76,.45)",
+                  display: "block",
+                }}
+              />
+            : <div style={{
+                width: 40,
+                height: 40,
+                borderRadius: "50%",
+                background: "linear-gradient(135deg,rgba(201,168,76,.15),rgba(122,28,46,.15))",
+                border: "1.5px solid rgba(201,168,76,.3)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                fontSize: "1rem",
+              }}>
                 {p.emoji || "🎵"}
               </div>
           }
         </div>
 
-        {/* Text content */}
-        <div style={{ flex:1, minWidth:0 }}>
+        {/* Name + Role */}
+        <div style={{ flex: 1, minWidth: 0, display: "flex", alignItems: "center", flexWrap: "wrap", gap: "0.5rem" }}>
+          <div style={{
+            fontFamily: "'Cormorant Garamond',serif",
+            fontSize: "clamp(0.95rem,1.8vw,1.1rem)",
+            fontWeight: 600,
+            color: "var(--ivory)",
+            letterSpacing: "0.04em",
+            lineHeight: 1.2,
+          }}>
+            {p.name}
+          </div>
 
-          {/* Name + Role on same line */}
-          <div style={{ display:"flex", alignItems:"center", flexWrap:"wrap", gap:"0.6rem", marginBottom:"0.4rem" }}>
-            <div style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"clamp(1rem,2vw,1.25rem)", fontWeight:600, color:"var(--ivory)", letterSpacing:"0.04em", lineHeight:1.2 }}>
-              {p.name}
-            </div>
-            <div style={{ display:"inline-flex", alignItems:"center", gap:"0.3rem", background:"rgba(201,168,76,.08)", border:"1px solid rgba(201,168,76,.2)", borderRadius:100, padding:"0.2rem 0.65rem" }}>
-              <div style={{ width:3, height:3, borderRadius:"50%", background:"var(--gold)", opacity:.8 }}/>
-              <span style={{ fontFamily:"'Cinzel',serif", fontSize:"0.55rem", letterSpacing:"0.18em", color:"var(--gold)", textTransform:"uppercase" }}>
+          {p.role && (
+            <div style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "0.25rem",
+              background: "rgba(201,168,76,.08)",
+              border: "1px solid rgba(201,168,76,.2)",
+              borderRadius: 100,
+              padding: "0.15rem 0.55rem",
+            }}>
+              <div style={{ width: 3, height: 3, borderRadius: "50%", background: "var(--gold)", opacity: .8 }} />
+              <span style={{
+                fontFamily: "'Cinzel',serif",
+                fontSize: "0.5rem",
+                letterSpacing: "0.18em",
+                color: "var(--gold)",
+                textTransform: "uppercase",
+              }}>
                 {p.role}
               </span>
             </div>
-          </div>
+          )}
 
-          {/* Desc */}
           {p.desc && (
-            <div style={{ fontFamily:"'Cormorant Garamond',serif", fontStyle:"italic", fontSize:"clamp(0.82rem,1.5vw,0.92rem)", color:"var(--text-dim)", lineHeight:1.65, letterSpacing:"0.02em" }}>
+            <div style={{
+              width: "100%",
+              fontFamily: "'Cormorant Garamond',serif",
+              fontStyle: "italic",
+              fontSize: "clamp(0.78rem,1.4vw,0.85rem)",
+              color: "var(--text-dim)",
+              lineHeight: 1.5,
+              letterSpacing: "0.02em",
+              marginTop: "0.1rem",
+            }}>
               {p.desc}
             </div>
           )}
-
-          {/* Link hint */}
-          {p.url && (
-            <div style={{ marginTop:"0.5rem", fontFamily:"'Cinzel',serif", fontSize:"0.55rem", letterSpacing:"0.2em", color: hov ? "var(--gold)" : "var(--text-dim)", textTransform:"uppercase", transition:"color .3s" }}>
-              View Profile →
-            </div>
-          )}
         </div>
+
+        {/* Link arrow */}
+        {p.url && (
+          <div style={{
+            fontFamily: "'Cinzel',serif",
+            fontSize: "0.55rem",
+            letterSpacing: "0.2em",
+            color: hov ? "var(--gold)" : "var(--text-dim)",
+            textTransform: "uppercase",
+            transition: "color .3s",
+            flexShrink: 0,
+          }}>
+            →
+          </div>
+        )}
       </div>
     </div>
   );
 
   if (p.url) {
     return (
-      <a href={p.url} target="_blank" rel="noopener noreferrer" style={{ textDecoration:"none" }}>
+      <a href={p.url} target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none" }}>
         {card}
       </a>
     );
