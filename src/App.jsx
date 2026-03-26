@@ -1407,7 +1407,7 @@ function SponsorCard({ sponsor }) {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        flexShrink: 0,
+        flexShrink: 0, //123
       }}>
         {sponsor.logoUrl && !imgErr
           ? <img
