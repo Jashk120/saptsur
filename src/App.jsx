@@ -737,6 +737,7 @@ function Nav({ title, cfg }) {
     cfg?.venue?.name        ? ["#venue","Venue"]    : null,
     cfg?.schedule?.length   ? ["#schedule","Schedule"] : null,
     cfg?.performers?.length ? ["#guest-artist", "Special Guest"] : null,
+    cfg?.sponsors?.length ? ["#sponsors", "Sponsors"] : null,
     cfg?.tickets?.length    ? ["#tickets","Tickets"] : null,
     cfg?.organizers?.length ? ["#contact","Contact"] : null,
   ].filter(Boolean);
@@ -745,10 +746,9 @@ function Nav({ title, cfg }) {
     <nav style={{ position:"fixed", top:0, left:0, right:0, zIndex:100, padding:"0.85rem clamp(1rem,4vw,4rem)", display:"flex", alignItems:"center", justifyContent:"space-between", background:"linear-gradient(to bottom,rgba(10,10,20,.96),transparent)", backdropFilter:"blur(10px)" }}>
       {/* Logo */}
       <div style={{ display:"flex", alignItems:"center", height:36, overflow:"visible" }}>
-        <img src={SAPTSUR_IMG} alt={title}
-          style={{ margin: "-18% -5% -60%", height:45, width:"auto", mixBlendMode:"screen", filter:"brightness(1.1) drop-shadow(0 0 6px rgba(201,168,76,.4))" }}
-          onError={e=>{ e.target.style.display="none"; e.target.nextSibling.style.display="block"; }}
-        />
+          <div style={{ fontFamily:"'Cormorant Garamond',serif", fontStyle:"italic", fontSize:"clamp(0.9rem,2vw,1.25rem)", letterSpacing:"0.22em", color:"var(--gold-pale)", opacity:.8, marginBottom:"2rem", animation:"fadeInUp 1s .75s both" }}>
+                {"Tere Sur Aur Mere Geet"}
+              </div>
         <span style={{ display:"none", fontFamily:"'Cinzel',serif", fontSize:"0.85rem", letterSpacing:"0.25em", color:"var(--gold)" }}>{title}</span>
       </div>
 
@@ -1374,6 +1374,182 @@ function GuestArtistSection({ performers }) {
     </section>
   );
 }
+// ── SPONSORS ──────────────────────────────────────────────────────────────────
+function SponsorCard({ sponsor }) {
+  const [hov, setHov] = useState(false);
+  const [imgErr, setImgErr] = useState(false);
+
+  const inner = (
+    <div
+      onMouseEnter={() => setHov(true)}
+      onMouseLeave={() => setHov(false)}
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        gap: "1.1rem",
+        padding: "2rem 1rem",
+        background: "transparent",
+        cursor: sponsor.url ? "pointer" : "default",
+        transition: "transform .4s ease",
+        transform: hov ? "translateY(-6px)" : "none",
+      }}
+    >
+      {/* Logo — large, circle, glows on hover */}
+      <div style={{
+        width: 250,
+        height: 250,
+        borderRadius: "50%",
+        overflow: "hidden",
+        background: "transparent",
+        transition: "box-shadow .4s ease",
+        marginBottom: "-5rem",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        flexShrink: 0,
+      }}>
+        {sponsor.logoUrl && !imgErr
+          ? <img
+              src={sponsor.logoUrl}
+              alt={sponsor.name}
+              onError={() => setImgErr(true)}
+              style={{
+                width: "70%",
+                height: "70%",
+                objectFit: "contain",
+                filter: hov ? "brightness(1.1)" : "brightness(0.92)",
+                transition: "filter .4s ease",
+              }}
+            />
+          : <span style={{
+              fontFamily: "'Cinzel',serif",
+              fontSize: "1.5rem",
+              fontWeight: 700,
+              color: "var(--gold)",
+              opacity: hov ? 1 : 0.7,
+              transition: "opacity .4s",
+            }}>
+              {sponsor.name.split(" ").map(w => w[0]).join("").slice(0, 3)}
+            </span>
+        }
+      </div>
+
+      {/* Name */}
+      <div style={{
+        fontFamily: "'Cormorant Garamond',serif",
+        fontSize: "clamp(1rem,2vw,1.1rem)",
+        fontWeight: 400,
+        color: hov ? "var(--ivory)" : "var(--ivory-dim)",
+        textAlign: "center",
+        letterSpacing: "0.06em",
+        lineHeight: 1.35,
+        transition: "color .35s",
+      }}>
+        {sponsor.name}
+      </div>
+
+      {/* Tagline */}
+      {sponsor.tagline && (
+        <div style={{
+          fontFamily: "'Cormorant Garamond',serif",
+          fontStyle: "italic",
+          fontSize: "clamp(0.78rem, 1.5vw, 0.88rem)",
+          color: "var(--text-dim)",
+          textAlign: "center",
+          lineHeight: 1.5,
+          opacity: 0.75,
+          maxWidth: 130,
+        }}>
+          {sponsor.tagline}
+        </div>
+      )}
+
+      {/* Subtle animated underline on hover instead of a button */}
+      {sponsor.url && (
+        <div style={{
+          width: hov ? 32 : 0,
+          height: 1,
+          background: "var(--gold)",
+          transition: "width .4s ease",
+          opacity: 0.6,
+        }}/>
+      )}
+    </div>
+  );
+
+  if (sponsor.url) {
+    return (
+      <a href={sponsor.url} target="_blank" rel="noopener noreferrer"
+        style={{ textDecoration: "none", display: "block" }}>
+        {inner}
+      </a>
+    );
+  }
+  return inner;
+}
+
+function SponsorsSection({ sponsors }) {
+  const [ref, vis] = useReveal();
+  if (!sponsors?.length) return null;
+
+  return (
+    <section
+      ref={ref}
+      id="sponsors"
+      style={{
+        padding: "5rem clamp(1rem,5vw,5rem)",
+        maxWidth: 1200,
+        margin: "0 auto",
+        opacity: vis ? 1 : 0,
+        transform: vis ? "none" : "translateY(48px)",
+        transition: "opacity .9s ease, transform .9s ease",
+      }}
+    >
+      <SectionLabel>Our Supporters</SectionLabel>
+      <SectionTitle>Proud <GoldEm>Sponsors</GoldEm></SectionTitle>
+
+      <p style={{
+        color: "var(--text-dim)",
+        maxWidth: 520,
+        marginBottom: "4rem",
+        fontSize: "clamp(1rem,2vw,1.15rem)",
+        lineHeight: 1.9,
+      }}>
+        This evening of music and memory is made possible by those who believe in the power of art and seva.
+      </p>
+
+      {/* Thin gold rule above grid */}
+      <div style={{
+        height: 1,
+        background: "linear-gradient(to right, transparent, rgba(201,168,76,.25), transparent)",
+        marginBottom: "3rem",
+      }}/>
+
+      <div style={{
+        display: "flex",
+        flexWrap: "wrap",
+        justifyContent: "center",
+        gap: "clamp(1rem,4vw,3rem)",
+      }}>
+        {sponsors.map((s, i) => (
+          <Reveal key={i} delay={i * 0.08}>
+            <div style={{ width: "clamp(120px,18vw,180px)" }}>
+              <SponsorCard sponsor={s} />
+            </div>
+          </Reveal>
+        ))}
+      </div>
+
+      {/* Thin gold rule below grid */}
+      <div style={{
+        height: 1,
+        background: "linear-gradient(to right, transparent, rgba(201,168,76,.25), transparent)",
+        marginTop: "3rem",
+      }}/>
+    </section>
+  );
+}
 // ══════════════════════════════════════════════════════════════════════════════
 //  MAIN APP
 // ══════════════════════════════════════════════════════════════════════════════
@@ -1614,7 +1790,17 @@ section {
 
             {/* In Memory Of */}
             <div style={{ animation:"fadeInUp 1s .95s both", marginBottom:"0.5rem" }}>
-              <div style={{ fontFamily:"'Cinzel',serif", fontSize:"0.48rem", letterSpacing:"0.45em", color:"var(--gold)", opacity:.55, textTransform:"uppercase", marginBottom:"0.55rem" }}>
+             <div
+                style={{
+                  fontFamily:"'Cinzel',serif",
+                  fontSize:"1rem",            // increased from 5rem
+                  letterSpacing:"0.45em",
+                  color:"var(--gold)",
+                  opacity:.55,
+                  textTransform:"uppercase",
+                  marginBottom:"0.55rem"
+                }}
+              >
                 In Eternal Memory of
               </div>
               <div className="hero-memory" style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"clamp(1.3rem,3.5vw,2.2rem)", fontWeight:300, color:"var(--ivory)", letterSpacing:"0.08em", lineHeight:1.2 }}>
@@ -1709,6 +1895,8 @@ section {
         {phase >= 2 && <VenueSection venue={cfg?.venue}/>}
         {phase >= 2 && cfg?.schedule?.length > 0 && <Divider/>}
         {phase >= 2 && <ScheduleSection schedule={cfg?.schedule}/>}
+        {phase >= 2 && cfg?.sponsors?.length > 0 && <Divider />}
+        {phase >= 2 && <SponsorsSection sponsors={cfg?.sponsors} />}
         {phase >= 2 && cfg?.tickets?.length > 0 && <Divider/>}
         {phase >= 2 && <TicketsSection tickets={cfg?.tickets}/>}
 
